@@ -10,13 +10,13 @@ import Logo from '@/components/Logo';
 export default function PrivacyPolicy() {
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="watercolor min-h-screen">
       {/* Navigation */}
       <Navigation />
 
       {/* Content */}
-      <main className="pt-28 md:pt-36 pb-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="legal-page pb-24 pt-36 md:pt-44">
+        <div className="legal-card mx-auto max-w-5xl px-5 sm:px-8">
           {/* Back Link */}
           <Link
             href="/"
@@ -27,8 +27,8 @@ export default function PrivacyPolicy() {
           </Link>
 
           {/* Header */}
-          <div className="mb-12">
-            <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
+          <div className="mb-14 border-b border-slate-200 pb-10">
+            <p className="eyebrow mb-5">Legal information</p><h1 className="text-5xl sm:text-7xl font-semibold tracking-[-.055em] text-slate-900 mb-4">
               Privacy Policy
             </h1>
             <p className="text-slate-600 text-lg">
@@ -46,7 +46,7 @@ export default function PrivacyPolicy() {
                 Rectify (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, submit your CV, or use our recruitment services.
               </p>
               <p className="mb-4">
-                We are a recruitment consultancy specialising in renewable energy talent across the USA, UK, and Europe. This policy applies to all personal data we process in connection with our services.
+                We are a global recruitment consultancy specialising in energy, engineering and infrastructure, with particular market expertise across Germany and the UK. This policy applies to all personal data we process in connection with our services.
               </p>
             </section>
 
@@ -217,7 +217,7 @@ export default function PrivacyPolicy() {
                 9. International Data Transfers
               </h2>
               <p className="mb-4">
-                As we operate in the USA, UK, and Europe, your personal data may be transferred to and processed in countries outside your country of residence. We ensure appropriate safeguards are in place to protect your data in accordance with applicable data protection laws.
+                As we operate globally, with particular market expertise in Germany and the UK, your personal data may be transferred to and processed in countries outside your country of residence. We ensure appropriate safeguards are in place to protect your data in accordance with applicable data protection laws.
               </p>
             </section>
 
@@ -286,4 +286,3 @@ export default function PrivacyPolicy() {
     </div>
   );
 }
-

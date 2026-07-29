@@ -1,640 +1,83 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import Footer from '@/components/Footer';
-import HeroSpline from '@/components/HeroSpline';
+import { ArrowDown, ArrowRight, ArrowUpRight, BarChart3, BatteryCharging, Building2, MapPin, Search, Server, Users, Wind } from 'lucide-react';
 import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 import StructuredData from '@/components/StructuredData';
-import { toast } from 'sonner';
-import {
-  ArrowRight,
-  Mail,
-  MapPin,
-  Puzzle,
-  Target,
-  Users,
-  Leaf,
-  Upload
-} from 'lucide-react';
+
+const CubeAnimation = dynamic(
+  () => import('@/components/CubeAnimation'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-full w-full bg-transparent" aria-hidden="true" />
+    ),
+  },
+);
+
+const markets = [
+  { icon: Wind, number: '01', title: 'Renewable energy', copy: 'Wind, solar, storage, hydrogen, grid and power delivery.' },
+  { icon: Building2, number: '02', title: 'Engineering & infrastructure', copy: 'Built environment, utilities, transport and major projects.' },
+  { icon: Server, number: '03', title: 'Mission critical', copy: 'Data centres, commissioning, controls and resilient power.' },
+  { icon: BatteryCharging, number: '04', title: 'Energy technology', copy: 'Electrification, automation, climate tech and energy software.' },
+];
+const services = [
+  { icon: Search, title: 'Specialist search & shortlist', copy: 'Targeted outreach for hard-to-reach technical and project talent.' },
+  { icon: BarChart3, title: 'Market mapping & intelligence', copy: 'Evidence on skills, salaries, availability and competition.' },
+  { icon: Users, title: 'Executive leadership search', copy: 'Discreet search for leaders responsible for growth and delivery.' },
+];
 
 export default function Home() {
-  const [isCvModalOpen, setIsCvModalOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    cv: null as File | null,
-  });
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rectifyinternational.com';
+  return <main className="overflow-hidden bg-white text-[#03104b]">
+    <Navigation activePage="home" overlay />
 
+    <section className="relative min-h-[900px] overflow-hidden bg-[#020d3b] pt-[78px] text-white lg:min-h-screen">
+      <Image src="/rectify-enterprise-hero.webp" alt="Senior energy and infrastructure leaders solving a complex project challenge" fill sizes="100vw" className="hidden object-cover object-center md:block" priority />
+      <Image src="/enterprise-talent-strategy.webp" alt="Energy and infrastructure leaders collaborating around a project plan" fill sizes="100vw" className="object-cover object-center md:hidden" priority />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,13,59,.15),rgba(2,13,59,.45)_42%,rgba(2,13,59,.9))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(2,13,59,.15),rgba(2,13,59,.75)_68%)] lg:bg-[radial-gradient(circle_at_28%_50%,rgba(2,13,59,.1),rgba(2,13,59,.82)_72%)]" />
+      <div className="pointer-events-none absolute inset-x-5 bottom-8 top-24 hidden border border-white/20 lg:block" />
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, files } = e.target;
-    if (name === 'cv' && files && files[0]) {
-      const file = files[0];
-      const maxSize = 10 * 1024 * 1024; // 10MB
-      if (file.size > maxSize) {
-        toast.error('File too large', {
-          description: 'Please upload a file smaller than 10MB.',
-        });
-        return;
-      }
-      setFormData({ ...formData, cv: file });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-  };
-
-  const handleSubmitCv = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.cv) {
-      toast.error('Missing information', {
-        description: 'Please fill in all required fields and upload your CV.',
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const submitFormData = new FormData();
-      submitFormData.append('name', formData.name);
-      submitFormData.append('email', formData.email);
-      if (formData.phone) {
-        submitFormData.append('phone', formData.phone);
-      }
-      submitFormData.append('cv', formData.cv);
-
-      const response = await fetch('/api/submit-cv', {
-        method: 'POST',
-        body: submitFormData,
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit CV');
-      }
-
-      toast.success('CV submitted successfully', {
-        description: 'Thank you for your submission. We will be in touch soon.',
-      });
-
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        cv: null,
-      });
-      setIsCvModalOpen(false);
-    } catch (error) {
-      toast.error('Error', {
-        description: error instanceof Error ? error.message : 'Failed to submit CV. Please try again.',
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <Navigation activePage="home" />
-
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-20 md:pt-32 md:pb-24">
-        {/* Background Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-indigo-50 via-blue-50 to-slate-50" />
-        
-        {/* Gradient fade to blend into next section */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-50 to-transparent pointer-events-none" />
-
-        {/* Animated Tribal Pattern Background */}
-        <div className="absolute inset-0 opacity-[0.15] overflow-hidden pointer-events-none">
-          <svg 
-            className="absolute inset-0 w-full h-full translate-y-12" 
-            viewBox="0 0 1200 800" 
-            preserveAspectRatio="xMidYMid slice"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <linearGradient id="tribalGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#2563eb" stopOpacity="0.8" />
-                <stop offset="50%" stopColor="#0d9488" stopOpacity="0.6" />
-                <stop offset="100%" stopColor="#2563eb" stopOpacity="0.8" />
-              </linearGradient>
-              <linearGradient id="tribalGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#0d9488" stopOpacity="0.7" />
-                <stop offset="50%" stopColor="#2563eb" stopOpacity="0.5" />
-                <stop offset="100%" stopColor="#0d9488" stopOpacity="0.7" />
-              </linearGradient>
-            </defs>
-            
-            {/* Flowing Tribal Lines - Layer 1 */}
-            <g className="tribal-layer-1">
-              <path
-                d="M-200,150 Q50,80 250,180 Q450,280 650,200 Q850,120 1050,220 Q1250,320 1450,180 Q1650,40 1850,150"
-                fill="none"
-                stroke="url(#tribalGradient1)"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                className="animate-tribal-flow-1"
-              />
-              <path
-                d="M-150,350 Q100,280 350,380 Q600,480 850,400 Q1100,320 1350,420 Q1600,520 1850,380"
-                fill="none"
-                stroke="url(#tribalGradient1)"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                className="animate-tribal-flow-2"
-              />
-              <path
-                d="M-100,550 Q200,480 500,580 Q800,680 1100,600 Q1400,520 1700,620 Q2000,720 2300,550"
-                fill="none"
-                stroke="url(#tribalGradient1)"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                className="animate-tribal-flow-3"
-              />
-            </g>
-            
-            {/* Flowing Tribal Lines - Layer 2 */}
-            <g className="tribal-layer-2">
-              <path
-                d="M-250,100 Q-50,180 150,120 Q350,60 550,140 Q750,220 950,160 Q1150,100 1350,180 Q1550,260 1750,120"
-                fill="none"
-                stroke="url(#tribalGradient2)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                className="animate-tribal-flow-4"
-              />
-              <path
-                d="M-200,300 Q50,380 300,320 Q550,260 800,340 Q1050,420 1300,360 Q1550,300 1800,380 Q2050,460 2300,300"
-                fill="none"
-                stroke="url(#tribalGradient2)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                className="animate-tribal-flow-5"
-              />
-              <path
-                d="M-150,500 Q100,580 400,520 Q700,460 1000,540 Q1300,620 1600,560 Q1900,500 2200,580"
-                fill="none"
-                stroke="url(#tribalGradient2)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                className="animate-tribal-flow-6"
-              />
-            </g>
-            
-            {/* Additional flowing lines for depth */}
-            <g className="tribal-layer-3">
-              <path
-                d="M-180,250 Q80,200 280,280 Q480,360 680,300 Q880,240 1080,320 Q1280,400 1480,280"
-                fill="none"
-                stroke="url(#tribalGradient1)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeOpacity="0.75"
-                className="animate-tribal-flow-7"
-              />
-              <path
-                d="M-120,450 Q180,400 420,480 Q660,560 900,500 Q1140,440 1380,520 Q1620,600 1920,480"
-                fill="none"
-                stroke="url(#tribalGradient2)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeOpacity="0.7"
-                className="animate-tribal-flow-8"
-              />
-            </g>
-            
-            {/* Decorative Tribal Elements */}
-            <g className="tribal-decorative">
-              <circle cx="200" cy="300" r="4" fill="#2563eb" opacity="0.5" className="animate-tribal-pulse-1" />
-              <circle cx="600" cy="200" r="3.5" fill="#0d9488" opacity="0.5" className="animate-tribal-pulse-2" />
-              <circle cx="1000" cy="400" r="4" fill="#2563eb" opacity="0.5" className="animate-tribal-pulse-3" />
-              <circle cx="400" cy="600" r="3.5" fill="#0d9488" opacity="0.5" className="animate-tribal-pulse-4" />
-              <circle cx="800" cy="500" r="4" fill="#2563eb" opacity="0.5" className="animate-tribal-pulse-5" />
-              <circle cx="1200" cy="250" r="3" fill="#0d9488" opacity="0.5" className="animate-tribal-pulse-6" />
-            </g>
-          </svg>
+      <div className="section-shell relative z-10 grid min-h-[822px] items-center gap-10 py-16 lg:min-h-[calc(100vh-78px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+        <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <div className="rounded-full border border-white/20 bg-[#020d3b]/35 px-4 py-2 text-[10px] font-bold uppercase tracking-[.22em] text-[#60eee7] backdrop-blur-md">Specialist search · Germany · UK · Global</div>
+          <h1 className="mt-8 max-w-[1100px] text-[3.7rem] font-semibold leading-[.88] tracking-[-.07em] sm:text-[6rem] lg:max-w-none lg:text-[5.5rem] xl:text-[7rem]">Your talent problem.<br/><span className="display-serif text-[#5af0e7]">We solve it.</span></h1>
+          <p className="mx-auto mt-8 max-w-3xl text-lg leading-8 text-blue-50/80 sm:text-xl lg:mx-0 lg:max-w-xl">We find the energy, engineering and infrastructure specialists who make critical progress possible.</p>
+          <div className="mt-9 flex w-full max-w-xl flex-col justify-center gap-3 sm:flex-row lg:justify-start"><Link href="/contact" className="button-light flex-1 sm:flex-none">Hire exceptional talent <ArrowUpRight className="h-4 w-4" /></Link><Link href="/services" className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/20 sm:flex-none">See how we solve it <ArrowRight className="h-4 w-4" /></Link></div>
+          <div className="mt-10 grid w-full max-w-3xl gap-2 sm:grid-cols-3 lg:max-w-2xl">{['Hard-to-fill roles','Market intelligence','Leadership search'].map((item,i)=><Link href={i===0?'/contact':'/services'} key={item} className="group flex items-center justify-between rounded-xl border border-white/15 bg-[#020d3b]/35 px-4 py-3 text-left text-xs font-semibold text-blue-50/80 backdrop-blur-md transition hover:border-[#5af0e7]/60 hover:bg-[#020d3b]/60 hover:text-white"><span><span className="mr-2 font-mono text-[9px] text-[#5af0e7]">0{i+1}</span>{item}</span><ArrowUpRight className="h-3.5 w-3.5 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"/></Link>)}</div>
         </div>
 
-        {/* Full-hero interactive Spline layer — sits behind copy and buttons */}
-        <HeroSpline fullSection className="hidden lg:block" />
-
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-none">
-          <div className="max-w-2xl text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold text-slate-900 mb-3 md:mb-4 leading-[1.1]">
-              Your problem,{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-                we solve it
-              </span>
-            </h1>
-            
-            <h2 className="text-xl sm:text-2xl md:text-3xl text-slate-700 mb-6 font-light">
-              Sourcing tomorrow&apos;s energy and infrastructure talent today.
-            </h2>
-            
-            <p className="text-base sm:text-lg text-slate-600 mb-8 max-w-xl mx-auto lg:mx-0">
-              Specialists in energy and infrastructure recruitment. Sourcing talent across the USA, UK, and Europe.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start pointer-events-auto relative z-20">
-              <Button 
-                size="lg" 
-                className="bg-blue-600 hover:bg-blue-700 text-base sm:text-lg px-6 sm:px-8 py-3.5 sm:py-4 h-12 sm:h-auto min-h-[48px] w-full sm:w-auto group"
-                onClick={() => setIsCvModalOpen(true)}
-              >
-                Submit CV
-                <Upload className="ml-2 h-5 w-5 group-hover:translate-y-[-2px] transition-transform" />
-              </Button>
-              <Link href="/contact" className="w-full sm:w-auto pointer-events-auto">
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="text-base sm:text-lg px-6 sm:px-8 py-3.5 sm:py-4 h-12 sm:h-auto min-h-[48px] w-full sm:w-auto border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900"
-                >
-                  Work With Us
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          <HeroSpline
-            className="mt-8 lg:hidden pointer-events-auto"
-            mobileTouchMode
-          />
+        <div className="relative mx-auto h-[min(58vw,22rem)] w-full max-w-md sm:h-[min(52vw,26rem)] lg:mx-0 lg:h-[min(68vh,38rem)] lg:max-w-none">
+          <CubeAnimation className="h-full" />
         </div>
+      </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-6 md:bottom-8 left-0 right-0 z-10 flex justify-center animate-bounce pointer-events-none">
-          <div className="w-6 h-10 border-2 border-slate-400 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-slate-400 rounded-full mt-2 animate-pulse"></div>
-          </div>
-        </div>
-      </section>
+      <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 whitespace-nowrap text-[9px] font-bold uppercase tracking-[.2em] text-blue-100/55"><ArrowDown className="h-4 w-4 text-[#5af0e7]"/> Explore Rectify</div>
+    </section>
 
-      {/* Solving Change Banner */}
-      <section className="py-8 sm:py-10 md:py-12 bg-gradient-to-r from-blue-600 via-blue-700 to-teal-600 relative overflow-hidden pt-16 sm:pt-20 md:pt-24 lg:pt-28">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80" 
-            alt=""
-            className="w-full h-full object-cover opacity-20"
-            aria-hidden="true"
-          />
-        </div>
-        <div className="absolute inset-0 bg-black/10"></div>
-        
-        {/* Modern geometric pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="hidden sm:block absolute top-20 left-20 w-32 h-32 border-2 border-white rotate-45"></div>
-          <div className="hidden md:block absolute top-40 right-32 w-24 h-24 border-2 border-white rotate-45"></div>
-          <div className="hidden lg:block absolute bottom-32 left-32 w-40 h-40 border-2 border-white rotate-45"></div>
-          <div className="hidden sm:block absolute bottom-20 right-20 w-28 h-28 border-2 border-white rotate-45"></div>
-          
-          {/* Connecting lines */}
-          <svg className="absolute inset-0 w-full h-full hidden md:block">
-            <line x1="15%" y1="25%" x2="75%" y2="45%" stroke="white" strokeWidth="1.5" strokeDasharray="8,8" opacity="0.3"/>
-            <line x1="75%" y1="45%" x2="35%" y2="75%" stroke="white" strokeWidth="1.5" strokeDasharray="8,8" opacity="0.3"/>
-          </svg>
-        </div>
-        
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-white leading-relaxed mb-3 sm:mb-4 px-2">
-            Solving change through people.
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed mb-4 sm:mb-5 md:mb-6 px-4">
-            At Rectify, we solve the talent problems that stall energy and infrastructure growth. We partner with developers, operators, investors, and technology-led organisations to deliver business-critical professionals across the full project lifecycle—from site origination and land acquisition through engineering, grid and systems integration, ESG, construction, and long-term asset management.
+    <section className="border-b border-[#dbe8f8] py-24 lg:py-36">
+      <div className="section-shell">
+        <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr]"><div><p className="eyebrow">The Rectify approach</p><h2 className="mt-7 text-5xl font-semibold leading-[.98] tracking-[-.055em] sm:text-6xl">A shortlist should feel like <span className="display-serif text-[#0b4ee8]">the answer.</span></h2></div><div className="lg:pt-16"><p className="max-w-2xl text-xl leading-9 text-slate-600">The hardest roles do not need more CVs. They need better market intelligence, sharper outreach and a consultant who understands why the hire matters.</p></div></div>
+        <div className="mt-16 grid border-y border-[#bdcee4] md:grid-cols-3">{[['Map','Build the evidence-led view of the real market.'],['Engage','Reach the right people with a compelling story.'],['Deliver','Present a qualified shortlist with total clarity.']].map(([item,copy],i)=><div key={item} className="group min-h-60 border-b border-[#bdcee4] py-8 md:border-b-0 md:border-r md:px-8 md:first:pl-0 md:last:border-r-0"><span className="font-mono text-xs text-[#0b4ee8]">/0{i+1}</span><h3 className="mt-12 text-2xl font-semibold">{item}</h3><p className="mt-3 max-w-xs text-sm leading-6 text-slate-600">{copy}</p></div>)}</div>
+      </div>
+    </section>
 
-            By supporting organisations at the forefront of the energy transition, we help unlock constrained pipelines, de-risk investment, and accelerate the delivery of sustainable, resilient infrastructure across the USA, UK, and Europe.
-          </p>
-          <div className="mt-4 sm:mt-5 md:mt-6 px-4">
-            <Link href="/services">
-              <Button size="lg" variant="outline" className="text-base sm:text-lg px-6 sm:px-8 py-3.5 sm:py-4 h-12 sm:h-auto min-h-[48px] w-full sm:w-auto border-2 border-white text-white bg-transparent hover:bg-white hover:text-blue-600 transition-all shadow-md hover:shadow-lg">
-                View Our Services
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+    <section className="bg-[#f2f8ff] py-24 lg:py-32"><div className="section-shell grid gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-start"><div><p className="eyebrow">Specialist ecosystems</p><h2 className="mt-6 max-w-3xl text-5xl font-semibold tracking-[-.05em] sm:text-6xl">Expertise for systems that cannot stand still.</h2><div className="mt-12 border-t border-[#bdcee4]">{markets.map(({icon:Icon,number,title,copy})=><Link href="/services" key={title} className="group grid grid-cols-[auto_1fr_auto] items-start gap-5 border-b border-[#bdcee4] py-6"><span className="font-mono text-[10px] text-[#0b4ee8]">/{number}</span><div><h3 className="text-xl font-semibold tracking-[-.02em]">{title}</h3><p className="mt-2 max-w-md text-sm leading-6 text-slate-600">{copy}</p></div><ArrowUpRight className="mt-1 h-5 w-5 text-[#0b4ee8] transition group-hover:-translate-y-1 group-hover:translate-x-1"/></Link>)}</div><Link href="/services" className="magnetic-link mt-8">Explore all expertise <ArrowRight className="h-4 w-4" /></Link></div>
+      <div className="grid min-h-[720px] grid-rows-[1.2fr_.8fr] gap-3 lg:sticky lg:top-28"><div className="group relative overflow-hidden"><Image src="/renewable-energy-leaders.webp" alt="Renewable energy project leaders reviewing a wind farm site plan" fill sizes="(max-width: 1024px) 100vw, 55vw" className="object-cover transition duration-700 group-hover:scale-[1.025]"/><div className="absolute inset-0 bg-gradient-to-t from-[#020d3b]/80 via-transparent to-transparent"/><p className="absolute bottom-6 left-6 text-xs font-bold uppercase tracking-[.18em] text-white">Renewable energy leadership</p></div><div className="group relative overflow-hidden"><Image src="/mission-critical-leaders.webp" alt="Mission-critical leaders reviewing data centre systems" fill sizes="(max-width: 1024px) 100vw, 55vw" className="object-cover object-[center_38%] transition duration-700 group-hover:scale-[1.025]"/><div className="absolute inset-0 bg-gradient-to-t from-[#020d3b]/80 via-transparent to-transparent"/><p className="absolute bottom-6 left-6 text-xs font-bold uppercase tracking-[.18em] text-white">Mission-critical expertise</p></div></div>
+    </div></section>
 
-      {/* Our Approach Section */}
-      <section className="py-12 sm:py-14 md:py-16 lg:py-20 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
-        {/* Subtle background pattern */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute top-0 left-1/4 w-96 h-96 border-2 border-blue-300 rounded-full"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 border-2 border-teal-300 rounded-full"></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-10 sm:mb-12 md:mb-14 lg:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-4 sm:mb-5 md:mb-6 px-4">
-              Our Approach
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed px-4">
-              We understand that talent is a critical enabler of growth across energy and infrastructure. Our consultants collaborate with forward-thinking organisations to secure the specialists required to scale delivery, overcome constraints, and advance the energy transition.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
-            {/* Card 1 */}
-            <div className="group relative">
-              <div className="relative bg-white rounded-2xl p-0 shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-300 h-full flex flex-col overflow-hidden">
-                {/* Gradient accent */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-teal-600 rounded-t-2xl z-10"></div>
-                
-                {/* Image */}
-                <div className="relative w-full h-48 sm:h-56 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80" 
-                    alt="Strategic talent mapping"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/20 to-transparent"></div>
-                </div>
-                
-                <div className="p-6 sm:p-8 mb-6 flex-1 flex flex-col">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-teal-50 to-teal-100 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <Target className="h-7 w-7 sm:h-8 sm:w-8 text-teal-600" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 sm:mb-4">Strategic Talent Mapping</h3>
-                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                    Identifying key players and emerging talent across industries to match your specific needs and organisational goals.
-                  </p>
-                </div>
-                
-                {/* Decorative element */}
-                <div className="mt-auto px-6 sm:px-8 pb-6 sm:pb-8 pt-4 sm:pt-6 border-t border-slate-100">
-                  <div className="flex items-center text-teal-600 text-sm font-semibold">
-                    <span>Learn more</span>
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Card 2 */}
-            <div className="group relative">
-              <div className="relative bg-white rounded-2xl p-0 shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-300 h-full flex flex-col overflow-hidden">
-                {/* Gradient accent */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-2xl z-10"></div>
-                
-                {/* Image */}
-                <div className="relative w-full h-48 sm:h-56 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80" 
-                    alt="Cultural fit assessment"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/20 to-transparent"></div>
-                </div>
-                
-                <div className="p-6 sm:p-8 mb-6 flex-1 flex flex-col">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <Users className="h-7 w-7 sm:h-8 sm:w-8 text-blue-600" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 sm:mb-4">Cultural Fit Assessment</h3>
-                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                    Ensuring candidates align with your company's mission and values for long-term success and team cohesion.
-                  </p>
-                </div>
-                
-                {/* Decorative element */}
-                <div className="mt-auto px-6 sm:px-8 pb-6 sm:pb-8 pt-4 sm:pt-6 border-t border-slate-100">
-                  <div className="flex items-center text-blue-600 text-sm font-semibold">
-                    <span>Learn more</span>
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Card 3 */}
-            <div className="group relative">
-              <div className="relative bg-white rounded-2xl p-0 shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-300 h-full flex flex-col overflow-hidden">
-                {/* Gradient accent */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-teal-500 to-teal-600 rounded-t-2xl z-10"></div>
-                
-                {/* Image */}
-                <div className="relative w-full h-48 sm:h-56 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&q=80" 
-                    alt="Business-driven solutions"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/20 to-transparent"></div>
-                </div>
-                
-                <div className="p-6 sm:p-8 mb-6 flex-1 flex flex-col">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-50 via-teal-50 to-blue-50 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <Puzzle className="h-7 w-7 sm:h-8 sm:w-8 text-blue-600" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 sm:mb-4">Business-Driven Solutions</h3>
-                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                    Strategic approach that aligns with your business objectives and growth plans for sustainable success.
-                  </p>
-                </div>
-                
-                {/* Decorative element */}
-                <div className="mt-auto px-6 sm:px-8 pb-6 sm:pb-8 pt-4 sm:pt-6 border-t border-slate-100">
-                  <div className="flex items-center text-blue-600 text-sm font-semibold">
-                    <span>Learn more</span>
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <section className="relative overflow-hidden py-24 lg:py-32"><div className="section-shell grid gap-14 lg:grid-cols-[.7fr_1.3fr]"><div><p className="eyebrow">What we deliver</p><h2 className="mt-6 text-5xl font-semibold tracking-[-.05em]">Search built around your problem.</h2><p className="mt-6 leading-7 text-slate-600">A precise, transparent approach for businesses whose hiring challenge cannot be solved by database search alone.</p></div><div className="border-t border-[#aebfd8]">{services.map(({icon:Icon,title,copy},i)=><Link href="/services" key={title} className="group grid gap-5 border-b border-[#aebfd8] py-7 sm:grid-cols-[60px_1fr_auto] sm:items-center"><div className="grid h-11 w-11 place-items-center border border-[#b9ccec] text-[#0b4ee8]"><Icon className="h-5 w-5"/></div><div><p className="font-mono text-[10px] text-[#7182a1]">/0{i+1}</p><h3 className="mt-1 text-xl font-semibold sm:text-2xl">{title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{copy}</p></div><ArrowUpRight className="h-5 w-5 text-[#0b4ee8] transition group-hover:-translate-y-1 group-hover:translate-x-1"/></Link>)}</div></div></section>
 
-      {/* Vision Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-r from-blue-600 via-blue-700 to-teal-600 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        
-        {/* Modern geometric pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="hidden sm:block absolute top-20 left-20 w-32 h-32 border-2 border-white rotate-45"></div>
-          <div className="hidden md:block absolute top-40 right-32 w-24 h-24 border-2 border-white rotate-45"></div>
-          <div className="hidden lg:block absolute bottom-32 left-32 w-40 h-40 border-2 border-white rotate-45"></div>
-          <div className="hidden sm:block absolute bottom-20 right-20 w-28 h-28 border-2 border-white rotate-45"></div>
-          
-          {/* Connecting lines */}
-          <svg className="absolute inset-0 w-full h-full hidden md:block">
-            <line x1="15%" y1="25%" x2="75%" y2="45%" stroke="white" strokeWidth="1.5" strokeDasharray="8,8" opacity="0.3"/>
-            <line x1="75%" y1="45%" x2="35%" y2="75%" stroke="white" strokeWidth="1.5" strokeDasharray="8,8" opacity="0.3"/>
-          </svg>
-        </div>
-        
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex justify-center mb-6 sm:mb-8 md:mb-10">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-md border border-white/30 shadow-xl">
-              <Leaf className="h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 text-white" />
-            </div>
-          </div>
-          
-          <blockquote className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light text-white leading-relaxed px-4">
-            "Shaping the future of the energy transition by building a sustainable tomorrow through exceptional human capital across engineering, technology, and innovation."
-          </blockquote>
-        </div>
-      </section>
+    <section className="relative bg-[#06165b] py-24 text-white lg:py-32"><div className="brand-grid absolute inset-0 opacity-20"/><div className="section-shell relative grid gap-14 lg:grid-cols-[.7fr_1.3fr]"><div><p className="eyebrow !text-[#42e5dd]">Where we are strongest</p><h2 className="mt-6 text-5xl font-semibold leading-none tracking-[-.05em] sm:text-6xl">Local depth.<br/><span className="display-serif text-[#42e5dd]">Global range.</span></h2><p className="mt-7 max-w-md leading-7 text-blue-100/70">Our network is deepest in Germany and the UK. Our ability to search is borderless.</p></div><div className="grid border border-white/20 sm:grid-cols-2"><LocationCard href="/areas/germany" count="16" title="Germany" label="Primary market" copy="Energy, engineering and mission-critical talent across every key cluster."/><LocationCard href="/areas/united-kingdom" count="10" title="United Kingdom" label="Specialist market" copy="Connected networks across power, infrastructure and technology."/></div></div></section>
 
-      {/* CV Submission Modal */}
-      <Dialog open={isCvModalOpen} onOpenChange={setIsCvModalOpen}>
-        <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-xl sm:text-2xl font-bold text-slate-900">Submit Your CV</DialogTitle>
-            <DialogDescription className="text-sm sm:text-base">
-              Upload your CV and we'll get back to you with opportunities that match your skills.
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleSubmitCv} className="space-y-4 sm:space-y-5 mt-4 sm:mt-6">
-            <div className="space-y-2">
-              <Label htmlFor="name">Full Name *</Label>
-              <Input
-                id="name"
-                name="name"
-                type="text"
-                required
-                value={formData.name}
-                onChange={handleInputChange}
-                placeholder="John Doe"
-                className="w-full"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="email">Email Address *</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="john@example.com"
-                className="w-full"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="phone">Phone Number</Label>
-              <Input
-                id="phone"
-                name="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={handleInputChange}
-                placeholder="+44 20 1234 5678"
-                className="w-full"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="cv">Upload CV *</Label>
-              <div className="flex items-center justify-center w-full">
-                <label
-                  htmlFor="cv"
-                  className="flex flex-col items-center justify-center w-full h-28 sm:h-32 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 hover:bg-slate-100 transition-colors min-h-[112px] touch-manipulation"
-                >
-                  <div className="flex flex-col items-center justify-center pt-4 sm:pt-5 pb-4 sm:pb-6 px-4">
-                    <Upload className="w-7 h-7 sm:w-8 sm:h-8 mb-2 text-slate-400" />
-                    <p className="mb-1 sm:mb-2 text-xs sm:text-sm text-slate-500 text-center">
-                      <span className="font-semibold">Tap to upload</span> or drag and drop
-                    </p>
-                    <p className="text-xs text-slate-500 text-center">PDF, DOC, DOCX (MAX. 10MB)</p>
-                  </div>
-                  <input
-                    id="cv"
-                    name="cv"
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    onChange={handleInputChange}
-                    className="hidden"
-                    required
-                  />
-                </label>
-              </div>
-              {formData.cv && (
-                <p className="text-sm text-slate-600 mt-2 break-words">
-                  Selected: {formData.cv.name}
-                </p>
-              )}
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-3 pt-4">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setIsCvModalOpen(false)}
-                className="flex-1 h-12 sm:h-auto min-h-[48px] text-base"
-                disabled={isSubmitting}
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                className="flex-1 bg-blue-600 hover:bg-blue-700 h-12 sm:h-auto min-h-[48px] text-base"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit CV'}
-              </Button>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
+    <section className="watercolor relative overflow-hidden border-y border-[#c9daee] px-5 py-24 lg:py-32"><div className="brand-grid absolute inset-0 opacity-30"/><div className="section-shell relative flex flex-col justify-between gap-10 lg:flex-row lg:items-end"><div><p className="eyebrow">A pivotal hire starts here</p><h2 className="mt-6 max-w-4xl text-5xl font-semibold leading-[.98] tracking-[-.055em] sm:text-7xl">Tell us what needs to <span className="display-serif text-[#0b4ee8]">change.</span></h2></div><Link href="/contact" className="button-primary shrink-0">Start a search <ArrowUpRight className="h-4 w-4" /></Link></div></section>
+    <Footer />
+    <StructuredData data={{'@context':'https://schema.org','@type':'ProfessionalService',name:'Rectify International',url:baseUrl,email:'info@rectifyinternational.com',telephone:'+447399836007',areaServed:['DE','GB','Worldwide'],serviceType:['Energy recruitment','Engineering recruitment','Infrastructure recruitment','Executive search']}} />
+  </main>;
+}
 
-      <Footer />
-      
-      <StructuredData
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'ProfessionalService',
-          name: 'Rectify',
-          description: 'Specialists in renewable energy recruitment and talent acquisition. Helping energy companies find business-critical talent to build a sustainable future across the USA, UK, and Europe.',
-          url: (typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_SITE_URL) || 'https://rectifyinternational.com',
-          logo: `${(typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_SITE_URL) || 'https://rectifyinternational.com'}/rectify-logo.png`,
-          image: `${(typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_SITE_URL) || 'https://rectifyinternational.com'}/rectify-logo.png`,
-          telephone: ['+447399836007', '+17865791193'],
-          email: 'info@rectifyinternational.com',
-          address: {
-            '@type': 'PostalAddress',
-            addressCountry: 'GB',
-          },
-          areaServed: ['US', 'GB', 'EU'],
-          serviceType: 'Recruitment Consultancy',
-          specialty: [
-            'Renewable Energy Recruitment',
-            'Solar PV Recruitment',
-            'Wind Energy Recruitment',
-            'Battery Storage Recruitment',
-            'ESG Recruitment',
-            'Engineering Recruitment',
-            'Technology Recruitment',
-          ],
-          sameAs: [
-            'https://www.linkedin.com/company/rectify',
-            'https://twitter.com/rectify',
-          ],
-        }}
-      />
-    </div>
-  );
+function LocationCard({href,count,title,label,copy}:{href:string;count:string;title:string;label:string;copy:string}) {
+  return <Link href={href} className="group flex min-h-[360px] flex-col justify-between border-b border-white/20 p-7 transition hover:bg-white/[.07] sm:border-b-0 sm:border-r sm:p-9 sm:last:border-r-0"><div className="flex items-center justify-between"><span className="text-[10px] font-bold uppercase tracking-[.15em] text-[#42e5dd]">{label}</span><MapPin className="h-5 w-5"/></div><div><p className="text-6xl font-semibold">{count}</p><h3 className="mt-2 text-2xl font-semibold">{title}</h3><p className="mt-3 text-sm leading-6 text-blue-100/65">{copy}</p><span className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#42e5dd]">Explore market <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1"/></span></div></Link>;
 }

@@ -1,141 +1,89 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Menu, X, Phone } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
 import Logo from './Logo';
 
-interface NavigationProps {
-  activePage?: 'home' | 'services' | 'contact';
-}
+interface NavigationProps { activePage?: 'home' | 'about' | 'services' | 'areas' | 'contact'; overlay?: boolean }
+const links = [
+  { href: '/', label: 'Home', key: 'home' },
+  { href: '/about', label: 'About', key: 'about' },
+  { href: '/services', label: 'Expertise', key: 'services' },
+  { href: '/areas', label: 'Locations', key: 'areas' },
+  { href: '/contact', label: 'Contact', key: 'contact' },
+] as const;
 
-export default function Navigation({ activePage = 'home' }: NavigationProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+export default function Navigation({ activePage = 'home', overlay = false }: NavigationProps) {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const frameRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const update = () => {
+      frameRef.current = null;
+      setScrolled(window.scrollY > 16);
+    };
+    const onScroll = () => {
+      if (frameRef.current === null) frameRef.current = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current);
+    };
   }, []);
 
-  const closeMenu = () => setIsMenuOpen(false);
+  useEffect(() => setOpen(false), [pathname]);
 
-  return (
-    <header className="fixed top-0 w-full z-50">
-      {/* Phone banner */}
-      <div className="bg-blue-700 text-white text-xs sm:text-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-center sm:justify-end gap-x-4 gap-y-1">
-          <a
-            href="tel:+447399836007"
-            className="inline-flex items-center gap-1.5 hover:text-blue-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded-sm"
-          >
-            <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-            <span>
-              07399 836 007 <span className="text-blue-200">(UK)</span>
-            </span>
-          </a>
-          <span className="hidden sm:inline text-blue-400" aria-hidden="true">|</span>
-          <a
-            href="tel:+17865791193"
-            className="inline-flex items-center gap-1.5 hover:text-blue-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded-sm"
-          >
-            <Phone className="h-3.5 w-3.5 shrink-0 sm:hidden" aria-hidden="true" />
-            <span>
-              +1 (786) 579-1193 <span className="text-blue-200">(US)</span>
-            </span>
-          </a>
-        </div>
-      </div>
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    const closeOnDesktop = () => {
+      if (window.innerWidth >= 768) setOpen(false);
+    };
 
-      <nav className={`w-full transition-all duration-300 ${
-        scrollY > 50 ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-transparent'
-      }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 md:h-20">
-          <div className="flex items-center">
-            <Logo />
-          </div>
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', closeOnEscape);
+    window.addEventListener('resize', closeOnDesktop, { passive: true });
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', closeOnEscape);
+      window.removeEventListener('resize', closeOnDesktop);
+    };
+  }, [open]);
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link
-              href="/"
-              className={`${activePage === 'home' ? 'text-blue-600 font-semibold' : 'text-slate-700 hover:text-blue-600'} transition-colors`}
-            >
-              Home
-            </Link>
-            <Link
-              href="/services"
-              className={`${activePage === 'services' ? 'text-blue-600 font-semibold' : 'text-slate-700 hover:text-blue-600'} transition-colors`}
-            >
-              Services
-            </Link>
-            <Link
-              href="/contact"
-              className={`${activePage === 'contact' ? 'text-blue-600 font-semibold' : 'text-slate-700 hover:text-blue-600'} transition-colors`}
-            >
-              Contact
-            </Link>
-            <Link href="/contact">
-              <Button className="bg-blue-600 hover:bg-blue-700">
-                Talk to a Consultant
-              </Button>
-            </Link>
-          </div>
-
-          {/* Mobile menu button - larger touch target */}
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="h-11 w-11 min-h-[44px] min-w-[44px] p-0 flex items-center justify-center"
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Navigation - improved spacing and touch targets */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-t shadow-lg">
-          <div className="px-4 pt-4 pb-6 space-y-2">
-            <Link
-              href="/"
-              className={`block px-4 py-3.5 ${activePage === 'home' ? 'text-blue-600 font-semibold' : 'text-slate-700 hover:text-blue-600'} text-base rounded-lg hover:bg-slate-50 transition-colors min-h-[44px] flex items-center`}
-              onClick={closeMenu}
-            >
-              Home
-            </Link>
-            <Link
-              href="/services"
-              className={`block px-4 py-3.5 ${activePage === 'services' ? 'text-blue-600 font-semibold' : 'text-slate-700 hover:text-blue-600'} text-base rounded-lg hover:bg-slate-50 transition-colors min-h-[44px] flex items-center`}
-              onClick={closeMenu}
-            >
-              Services
-            </Link>
-            <Link
-              href="/contact"
-              className={`block px-4 py-3.5 ${activePage === 'contact' ? 'text-blue-600 font-semibold' : 'text-slate-700 hover:text-blue-600'} text-base rounded-lg hover:bg-slate-50 transition-colors min-h-[44px] flex items-center`}
-              onClick={closeMenu}
-            >
-              Contact
-            </Link>
-            <div className="pt-2 space-y-3">
-              <Link href="/contact" onClick={closeMenu}>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 h-12 text-base font-semibold min-h-[48px]">
-                  Talk to a Consultant
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
-    </nav>
-    </header>
-  );
+  const resolvedActivePage = pathname === '/'
+    ? 'home'
+    : pathname.startsWith('/about')
+      ? 'about'
+      : pathname.startsWith('/services')
+        ? 'services'
+        : pathname.startsWith('/areas')
+          ? 'areas'
+          : pathname.startsWith('/contact')
+            ? 'contact'
+            : activePage;
+  const floating = overlay && !scrolled && !open;
+  return <header className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-200 ${scrolled || open ? 'border-[#dce8fa] bg-white/95 shadow-[0_10px_40px_rgba(2,20,91,.06)] backdrop-blur-xl' : overlay ? 'border-transparent bg-transparent' : 'border-[#e5edf9] bg-white/95 backdrop-blur-md'}`}>
+    <div className="section-shell flex h-[78px] items-center justify-between">
+      <Logo size="small" inverse={floating} />
+      <nav className={`hidden items-center md:flex ${floating ? 'gap-2 rounded-full border border-white/20 bg-[#020d3b]/30 p-1.5 backdrop-blur-md' : 'gap-7'}`} aria-label="Main navigation">
+        {links.map(link => <Link key={link.href} href={link.href} aria-current={resolvedActivePage === link.key ? 'page' : undefined} className={floating ? `rounded-full px-4 py-2 text-[13px] font-semibold transition-colors ${resolvedActivePage===link.key?'bg-white text-[#03104b]':'text-white/75 hover:text-white'}` : `nav-link ${resolvedActivePage === link.key ? 'nav-link-active' : ''}`}>{link.label}</Link>)}
+        <Link href="/contact" className={floating ? 'inline-flex items-center gap-2 rounded-full bg-[#53eee6] px-5 py-2.5 text-[13px] font-bold text-[#03104b] transition hover:bg-white' : 'button-primary !px-5 !py-3'}>Start a search <ArrowUpRight className="h-4 w-4" /></Link>
+      </nav>
+      <button type="button" className={`grid h-11 w-11 place-items-center rounded-full border transition-colors md:hidden ${floating?'border-white/25 bg-[#020d3b]/25 text-white backdrop-blur':'border-[#cddbf2] bg-white/80 text-[#041353]'}`} onClick={() => setOpen(current => !current)} aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? 'Close navigation' : 'Open navigation'}>{open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button>
+    </div>
+    {open && <nav id="mobile-navigation" className="max-h-[calc(100dvh-78px)] overflow-y-auto border-t border-[#e1eafb] bg-white px-5 pb-8 pt-2 shadow-[0_24px_60px_rgba(2,20,91,.12)] md:hidden" aria-label="Mobile navigation">
+      {links.map(link => <Link key={link.href} href={link.href} aria-current={resolvedActivePage === link.key ? 'page' : undefined} className={`flex min-h-16 items-center justify-between border-b border-[#e8effb] py-4 text-lg font-semibold transition-colors ${resolvedActivePage === link.key ? 'text-[#0b4ee8]' : 'text-[#07165b] hover:text-[#0b4ee8]'}`}>{link.label}<ArrowUpRight className="h-4 w-4 text-[#0b57ee]" /></Link>)}
+      <Link href="/contact" className="button-primary mt-6 w-full">Start a search <ArrowUpRight className="h-4 w-4" /></Link>
+    </nav>}
+  </header>;
 }

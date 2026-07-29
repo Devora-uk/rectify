@@ -72,17 +72,17 @@ export default function CookieBanner() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t-2 border-slate-200 shadow-lg"
+      className="fixed bottom-3 left-3 right-3 z-50 rounded-2xl border border-slate-200 bg-white/95 shadow-[0_20px_70px_rgba(15,23,42,.2)] backdrop-blur-xl sm:bottom-5 sm:left-5 sm:right-5"
       role="dialog"
       aria-labelledby="cookie-banner-title"
       aria-describedby="cookie-banner-description"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 sm:py-5">
         {!isPreferencesOpen ? (
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex-1">
               <div className="flex items-start gap-3">
-                <Cookie className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" aria-hidden="true" />
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#dffbf9]"><Cookie className="h-4 w-4 text-[#067c79]" aria-hidden="true" /></span>
                 <div>
                   <h3
                     id="cookie-banner-title"
@@ -122,7 +122,7 @@ export default function CookieBanner() {
               </Button>
               <Button
                 onClick={handleAcceptAll}
-                className="h-11 sm:h-10 min-h-[44px] text-sm sm:text-base bg-blue-600 hover:bg-blue-700 text-white"
+                className="h-11 sm:h-10 min-h-[44px] rounded-full bg-slate-950 text-sm text-white hover:bg-blue-700 sm:text-base"
               >
                 Accept All
               </Button>
@@ -251,4 +251,3 @@ export default function CookieBanner() {
     </div>
   );
 }
-

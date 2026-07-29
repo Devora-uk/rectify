@@ -1,13 +1,15 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // Force dynamic rendering for this route since it handles form data
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
   try {
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json({ error: 'Email service is not configured' }, { status: 503 });
+    }
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const formData = await request.formData();
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
@@ -123,4 +125,3 @@ export async function POST(request: Request) {
     );
   }
 }
-

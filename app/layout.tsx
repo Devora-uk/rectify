@@ -1,15 +1,19 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Source_Sans_3 } from 'next/font/google';
 import { Toaster } from 'sonner';
 import CookieBanner from '@/components/CookieBanner';
 
-const inter = Inter({ subsets: ['latin'] });
+const sourceSans = Source_Sans_3({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-sans',
+});
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rectifyinternational.com';
 const siteName = 'Rectify';
-const defaultTitle = 'Rectify - Energy Recruitment & Consultancy';
-const defaultDescription = 'Specialists in renewable energy recruitment and talent acquisition. Helping energy companies find business-critical talent to build a sustainable future across the USA, UK, and Europe.';
+const defaultTitle = 'Rectify International | Energy & Engineering Recruitment';
+const defaultDescription = 'Specialist energy, engineering, infrastructure and data-centre recruitment. Global search with deep market expertise across Germany and the UK.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -28,7 +32,8 @@ export const metadata: Metadata = {
     'engineering recruitment',
     'technology recruitment',
     'energy talent acquisition',
-    'recruitment USA',
+    'recruitment Germany',
+    'German energy recruitment',
     'recruitment UK',
     'recruitment Europe',
     'executive search',
@@ -59,10 +64,10 @@ export const metadata: Metadata = {
     description: defaultDescription,
     images: [
       {
-        url: `${baseUrl}/rectify-logo.png`,
-        width: 1200,
-        height: 630,
-        alt: 'Rectify - Energy Recruitment & Consultancy',
+        url: `${baseUrl}/rectify-brand-banner.png`,
+        width: 2508,
+        height: 627,
+        alt: 'Rectify International — Your problem, we solved it.',
       },
     ],
   },
@@ -70,8 +75,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: defaultTitle,
     description: defaultDescription,
-    images: [`${baseUrl}/rectify-logo.png`],
-    creator: '@rectify',
+    images: [`${baseUrl}/rectify-brand-banner.png`],
   },
   robots: {
     index: true,
@@ -85,7 +89,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: baseUrl,
+    canonical: '/',
   },
   verification: {
     // Add your verification codes here when available
@@ -103,7 +107,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${sourceSans.className} ${sourceSans.variable}`}>
         {children}
         <Toaster position="top-right" richColors />
         <CookieBanner />

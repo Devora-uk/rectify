@@ -10,13 +10,13 @@ import Logo from '@/components/Logo';
 export default function CookiePolicy() {
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="watercolor min-h-screen">
       {/* Navigation */}
       <Navigation />
 
       {/* Content */}
-      <main className="pt-28 md:pt-36 pb-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="legal-page pb-24 pt-36 md:pt-44">
+        <div className="legal-card mx-auto max-w-5xl px-5 sm:px-8">
           {/* Back Link */}
           <Link
             href="/"
@@ -27,8 +27,8 @@ export default function CookiePolicy() {
           </Link>
 
           {/* Header */}
-          <div className="mb-12">
-            <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
+          <div className="mb-14 border-b border-slate-200 pb-10">
+            <p className="eyebrow mb-5">Legal information</p><h1 className="text-5xl sm:text-7xl font-semibold tracking-[-.055em] text-slate-900 mb-4">
               Cookie Policy
             </h1>
             <p className="text-slate-600 text-lg">
@@ -251,4 +251,3 @@ export default function CookiePolicy() {
     </div>
   );
 }
-

@@ -1,9 +1,10 @@
 import { MetadataRoute } from 'next';
+import { locations } from '@/lib/locations';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rectifyinternational.com';
 
-  return [
+  const core: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
@@ -11,10 +12,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/services`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/areas`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/areas/germany`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/areas/united-kingdom`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/contact`,
@@ -41,6 +66,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
   ];
-}
 
+  return [...core, ...locations.map((location) => ({
+    url: `${baseUrl}/areas/${location.country}/${location.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: location.country === 'germany' ? 0.8 : 0.7,
+  }))];
+}
 
