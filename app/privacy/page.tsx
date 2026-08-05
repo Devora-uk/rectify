@@ -63,6 +63,7 @@ export default function PrivacyPolicy() {
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>Submit your CV or application through our website</li>
+                <li>Apply to partner with us through our partnership form</li>
                 <li>Contact us via our contact form or email</li>
                 <li>Register for job alerts or newsletters</li>
                 <li>Communicate with us about our services</li>

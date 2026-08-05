@@ -73,8 +73,8 @@ export default function AboutPage() {
             <p className="text-lg leading-8 text-slate-600">
               Rectify is a specialist recruitment partner for energy, engineering, infrastructure and mission-critical environments — built on market knowledge, honest communication and relationships that last.
             </p>
-            <Link href="/contact" className="magnetic-link mt-7">
-              Work with us <ArrowRight className="h-4 w-4" />
+            <Link href="/partner" className="magnetic-link mt-7">
+              Partner with us <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

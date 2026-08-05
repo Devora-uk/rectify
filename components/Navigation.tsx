@@ -6,12 +6,13 @@ import { usePathname } from 'next/navigation';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import Logo from './Logo';
 
-interface NavigationProps { activePage?: 'home' | 'about' | 'services' | 'areas' | 'contact'; overlay?: boolean }
+interface NavigationProps { activePage?: 'home' | 'about' | 'services' | 'areas' | 'partner' | 'contact'; overlay?: boolean }
 const links = [
   { href: '/', label: 'Home', key: 'home' },
   { href: '/about', label: 'About', key: 'about' },
   { href: '/services', label: 'Expertise', key: 'services' },
   { href: '/areas', label: 'Locations', key: 'areas' },
+  { href: '/partner', label: 'Partner', key: 'partner' },
   { href: '/contact', label: 'Contact', key: 'contact' },
 ] as const;
 
@@ -66,8 +67,10 @@ export default function Navigation({ activePage = 'home', overlay = false }: Nav
       ? 'about'
       : pathname.startsWith('/services')
         ? 'services'
-        : pathname.startsWith('/areas')
-          ? 'areas'
+      : pathname.startsWith('/areas')
+        ? 'areas'
+        : pathname.startsWith('/partner')
+          ? 'partner'
           : pathname.startsWith('/contact')
             ? 'contact'
             : activePage;
@@ -75,7 +78,7 @@ export default function Navigation({ activePage = 'home', overlay = false }: Nav
   return <header className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-200 ${scrolled || open ? 'border-[#dce8fa] bg-white/95 shadow-[0_10px_40px_rgba(2,20,91,.06)] backdrop-blur-xl' : overlay ? 'border-transparent bg-transparent' : 'border-[#e5edf9] bg-white/95 backdrop-blur-md'}`}>
     <div className="section-shell flex h-[78px] items-center justify-between">
       <Logo size="small" inverse={floating} />
-      <nav className={`hidden items-center md:flex ${floating ? 'gap-2 rounded-full border border-white/20 bg-[#020d3b]/30 p-1.5 backdrop-blur-md' : 'gap-7'}`} aria-label="Main navigation">
+      <nav className={`hidden items-center md:flex ${floating ? 'gap-2 rounded-full border border-white/20 bg-[#020d3b]/30 p-1.5 backdrop-blur-md' : 'gap-5 lg:gap-7'}`} aria-label="Main navigation">
         {links.map(link => <Link key={link.href} href={link.href} aria-current={resolvedActivePage === link.key ? 'page' : undefined} className={floating ? `rounded-full px-4 py-2 text-[13px] font-semibold transition-colors ${resolvedActivePage===link.key?'bg-white text-[#03104b]':'text-white/75 hover:text-white'}` : `nav-link ${resolvedActivePage === link.key ? 'nav-link-active' : ''}`}>{link.label}</Link>)}
         <Link href="/contact" className={floating ? 'inline-flex items-center gap-2 rounded-full bg-[#53eee6] px-5 py-2.5 text-[13px] font-bold text-[#03104b] transition hover:bg-white' : 'button-primary !px-5 !py-3'}>Start a search <ArrowUpRight className="h-4 w-4" /></Link>
       </nav>
