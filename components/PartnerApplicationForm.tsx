@@ -151,7 +151,7 @@ export default function PartnerApplicationForm() {
           </label>
           <label className="text-sm font-semibold">
             Primary geography *
-            <input className={fieldClass} name="geography" value={data.geography} onChange={update} required placeholder="e.g. Germany, UK, Nordics" />
+            <input className={fieldClass} name="geography" value={data.geography} onChange={update} required placeholder="e.g. United States, Germany" />
           </label>
         </div>
       </Question>

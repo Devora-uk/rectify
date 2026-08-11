@@ -30,16 +30,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/areas/germany`,
+      url: `${baseUrl}/areas/united-states`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/areas/united-kingdom`,
+      url: `${baseUrl}/areas/germany`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.85,
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/partner`,
@@ -77,7 +77,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}/areas/${location.country}/${location.slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
-    priority: location.country === 'germany' ? 0.8 : 0.7,
+    priority: location.country === 'united-states' ? 0.8 : 0.75,
   }))];
 }
-

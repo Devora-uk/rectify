@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     'recruitment partner',
     'technical hiring partnership',
     'energy recruitment partner',
+    'engineering recruitment USA',
     'engineering recruitment Germany',
     'infrastructure talent partner',
     'apply to work with Rectify',

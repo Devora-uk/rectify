@@ -32,7 +32,7 @@ export default function TermsAndConditions() {
               Terms & Conditions
             </h1>
             <p className="text-slate-600 text-lg">
-              Last updated: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+              Last updated: {new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
             </p>
           </div>
 
@@ -46,7 +46,7 @@ export default function TermsAndConditions() {
                 These Terms and Conditions (&quot;Terms&quot;) govern your use of the Rectify website and our recruitment services. By accessing our website or using our services, you agree to be bound by these Terms.
               </p>
               <p className="mb-4">
-                Rectify is a global recruitment consultancy specialising in energy, engineering and infrastructure, with particular market expertise across Germany and the UK. We act as an intermediary between candidates and employers.
+                Rectify is a recruitment consultancy specialising in energy, engineering and infrastructure, with market expertise across the United States and Germany. We act as an intermediary between candidates and employers.
               </p>
             </section>
 
@@ -233,12 +233,6 @@ export default function TermsAndConditions() {
                   <strong>Email:</strong>{' '}
                   <a href="mailto:info@rectifyinternational.com" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">
                     info@rectifyinternational.com
-                  </a>
-                </p>
-                <p className="mb-2">
-                  <strong>Phone (UK):</strong>{' '}
-                  <a href="tel:+447399836007" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">
-                    07399 836 007
                   </a>
                 </p>
                 <p className="mb-2">

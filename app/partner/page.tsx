@@ -73,7 +73,7 @@ export default function PartnerPage() {
               .
             </p>
             <p>
-              We are strongest in Germany and the UK, with the reach to search further when the brief needs it.
+              We are strongest in the United States and Germany — the only markets we serve.
             </p>
           </div>
         </div>
@@ -104,11 +104,11 @@ export default function PartnerPage() {
           <div className="relative mx-auto max-w-[1500px] overflow-hidden rounded-[2rem] lg:rounded-[2.75rem]">
             <div className="relative aspect-[16/7] min-h-64 sm:min-h-80">
               <Image
-                src="/enterprise-talent-strategy.webp"
-                alt="Leaders reviewing a technical hiring plan together"
+                src="/diverse-talent-collaboration.webp"
+                alt="Diverse hiring leaders reviewing market intelligence together"
                 fill
                 sizes="100vw"
-                className="object-cover object-[center_30%]"
+                className="object-cover object-[center_35%]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#020d3b]/80 via-[#020d3b]/20 to-transparent" />
               <p className="absolute bottom-6 left-6 max-w-lg text-sm font-semibold text-white sm:bottom-8 sm:left-8 sm:text-lg">
@@ -153,7 +153,7 @@ export default function PartnerPage() {
             name: 'Rectify International',
             url: baseUrl,
             email: 'info@rectifyinternational.com',
-            telephone: '+447399836007',
+            telephone: '+17865791193',
           },
         }}
       />

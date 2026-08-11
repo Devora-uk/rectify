@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   keywords: [
     'contact recruitment consultant',
     'energy recruitment contact',
+    'US energy recruitment',
+    'Germany recruitment contact',
     'get in touch',
     'recruitment enquiry',
   ],

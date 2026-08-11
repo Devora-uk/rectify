@@ -17,6 +17,7 @@ import {
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import StructuredData from '@/components/StructuredData';
+import { execTeam } from '@/lib/exec-team';
 import { values } from '@/lib/values';
 
 const valueIcons = {
@@ -46,8 +47,8 @@ const marketExperience = [
   },
   {
     icon: Globe2,
-    title: 'Germany, the UK and beyond',
-    copy: 'Our networks are deepest in Germany and the UK, with the reach to search internationally when the brief demands it.',
+    title: 'United States and Germany',
+    copy: 'Our networks are focused exclusively on the United States and Germany — the only markets we serve.',
   },
 ];
 
@@ -84,11 +85,11 @@ export default function AboutPage() {
         <div className="relative mx-auto max-w-[1500px] overflow-hidden rounded-[2rem] bg-[#06165b] lg:rounded-[2.75rem]">
           <div className="relative h-[380px] lg:h-[520px]">
             <Image
-              src="/rectify-enterprise-hero.webp"
-              alt="Rectify consultants working with energy and infrastructure leaders"
+              src="/diverse-leadership-brief.webp"
+              alt="Black woman leader preparing a technical brief for an energy and infrastructure search"
               fill
               sizes="(max-width: 1024px) 100vw, 1500px"
-              className="object-cover"
+              className="object-cover object-[center_30%]"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#020d3b]/90 via-[#020d3b]/55 to-transparent" />
             <div className="absolute inset-0 flex items-end p-8 sm:p-12">
@@ -166,6 +167,62 @@ export default function AboutPage() {
                   </div>
                   <h3 className="mt-10 text-2xl font-semibold tracking-[-.03em]">{value.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-600">{value.copy}</p>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 lg:py-32">
+        <div className="section-shell">
+          <div className="max-w-3xl">
+            <p className="eyebrow">Leadership</p>
+            <h2 className="mt-6 text-5xl font-semibold tracking-[-.05em] sm:text-6xl">
+              The people behind
+              <span className="display-serif text-[#0b4ee8]"> Rectify.</span>
+            </h2>
+            <p className="mt-6 max-w-2xl leading-7 text-slate-600">
+              Our executive team brings operational clarity, market judgement and a human approach to specialist recruitment.
+            </p>
+          </div>
+
+          <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-28">
+            {execTeam.map((member, index) => {
+              const reverse = index % 2 === 1;
+
+              return (
+                <article
+                  key={member.name}
+                  className="grid gap-10 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-16"
+                >
+                  <div className={reverse ? 'lg:order-2' : undefined}>
+                    <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#e8f0fb] lg:rounded-[2.5rem]">
+                      <Image
+                        src={member.image}
+                        alt={member.imageAlt}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 520px"
+                        className="object-cover object-top"
+                      />
+                    </div>
+                  </div>
+
+                  <div className={reverse ? 'lg:order-1' : undefined}>
+                    <p className="font-mono text-[10px] font-semibold uppercase tracking-[.2em] text-[#0b4ee8]">
+                      {member.role}
+                    </p>
+                    <h3 className="mt-4 text-4xl font-semibold tracking-[-.045em] sm:text-5xl">
+                      {member.name}
+                    </h3>
+                    <div className="mt-8 space-y-5">
+                      {member.bio.map((paragraph) => (
+                        <p key={paragraph.slice(0, 48)} className="leading-7 text-slate-600">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
                 </article>
               );
             })}

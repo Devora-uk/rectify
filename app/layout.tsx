@@ -13,7 +13,7 @@ const sourceSans = Source_Sans_3({
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rectifyinternational.com';
 const siteName = 'Rectify';
 const defaultTitle = 'Rectify International | Energy & Engineering Recruitment';
-const defaultDescription = 'Specialist energy, engineering, infrastructure and data-centre recruitment. Global search with deep market expertise across Germany and the UK.';
+const defaultDescription = 'Specialist energy, engineering, infrastructure and data-centre recruitment. Primary focus on the United States, with deep market expertise in Germany.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -32,10 +32,10 @@ export const metadata: Metadata = {
     'engineering recruitment',
     'technology recruitment',
     'energy talent acquisition',
+    'recruitment USA',
+    'US energy recruitment',
     'recruitment Germany',
     'German energy recruitment',
-    'recruitment UK',
-    'recruitment Europe',
     'executive search',
     'permanent placement',
     'contract recruitment',
@@ -57,7 +57,8 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
   openGraph: {
     type: 'website',
-    locale: 'en_GB',
+    locale: 'en_US',
+    alternateLocale: ['de_DE'],
     url: baseUrl,
     siteName: siteName,
     title: defaultTitle,
@@ -106,7 +107,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en-US">
       <body className={`${sourceSans.className} ${sourceSans.variable}`}>
         {children}
         <Toaster position="top-right" richColors />

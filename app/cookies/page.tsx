@@ -32,7 +32,7 @@ export default function CookiePolicy() {
               Cookie Policy
             </h1>
             <p className="text-slate-600 text-lg">
-              Last updated: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+              Last updated: {new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
             </p>
           </div>
 
@@ -165,7 +165,7 @@ export default function CookiePolicy() {
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">Google Chrome</a></li>
                 <li><a href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">Mozilla Firefox</a></li>
-                <li><a href="https://support.apple.com/en-gb/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">Safari</a></li>
+                <li><a href="https://support.apple.com/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">Safari</a></li>
                 <li><a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">Microsoft Edge</a></li>
               </ul>
               <p className="mb-4">
@@ -216,12 +216,6 @@ export default function CookiePolicy() {
                   <strong>Email:</strong>{' '}
                   <a href="mailto:info@rectifyinternational.com" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">
                     info@rectifyinternational.com
-                  </a>
-                </p>
-                <p className="mb-2">
-                  <strong>Phone (UK):</strong>{' '}
-                  <a href="tel:+447399836007" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">
-                    07399 836 007
                   </a>
                 </p>
                 <p className="mb-2">

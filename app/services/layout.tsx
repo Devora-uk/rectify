@@ -16,6 +16,8 @@ export const metadata: Metadata = {
     'data centre recruitment',
     'engineering talent',
     'mission critical hiring',
+    'US energy recruitment',
+    'Germany engineering recruitment',
   ],
   openGraph: {
     title: 'Our Services | Rectify International',

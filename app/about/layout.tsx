@@ -4,19 +4,19 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rectifyinternationa
 
 export const metadata: Metadata = {
   title: 'About Rectify',
-  description: 'Meet Rectify International — specialist recruitment for energy, engineering, infrastructure and mission-critical markets, guided by expertise, integrity, impact and trust.',
+  description: 'Meet Rectify International and the leadership team behind specialist recruitment for energy, engineering, infrastructure and mission-critical markets.',
   keywords: [
     'about Rectify International',
     'energy recruitment consultancy',
     'engineering recruitment values',
+    'specialist recruitment USA',
     'specialist recruitment Germany',
-    'specialist recruitment UK',
     'infrastructure talent',
     'mission critical recruitment',
   ],
   openGraph: {
     title: 'About Rectify International',
-    description: 'Specialist recruitment built on deep market knowledge, honest communication and long-term relationships across Germany, the UK and beyond.',
+    description: 'Specialist recruitment built on deep market knowledge, honest communication and long-term relationships across the United States and Germany.',
     url: `${baseUrl}/about`,
     type: 'website',
   },

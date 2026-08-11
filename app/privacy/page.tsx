@@ -32,7 +32,7 @@ export default function PrivacyPolicy() {
               Privacy Policy
             </h1>
             <p className="text-slate-600 text-lg">
-              Last updated: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+              Last updated: {new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
             </p>
           </div>
 
@@ -46,7 +46,7 @@ export default function PrivacyPolicy() {
                 Rectify (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, submit your CV, or use our recruitment services.
               </p>
               <p className="mb-4">
-                We are a global recruitment consultancy specialising in energy, engineering and infrastructure, with particular market expertise across Germany and the UK. This policy applies to all personal data we process in connection with our services.
+                We are a recruitment consultancy specialising in energy, engineering and infrastructure, with market expertise across the United States and Germany. This policy applies to all personal data we process in connection with our services.
               </p>
             </section>
 
@@ -218,7 +218,7 @@ export default function PrivacyPolicy() {
                 9. International Data Transfers
               </h2>
               <p className="mb-4">
-                As we operate globally, with particular market expertise in Germany and the UK, your personal data may be transferred to and processed in countries outside your country of residence. We ensure appropriate safeguards are in place to protect your data in accordance with applicable data protection laws.
+                As we operate across the United States and Germany, your personal data may be transferred to and processed in countries outside your country of residence. We ensure appropriate safeguards are in place to protect your data in accordance with applicable data protection laws, including GDPR for individuals in Germany and the EU, and applicable US state privacy laws where relevant.
               </p>
             </section>
 
@@ -252,12 +252,6 @@ export default function PrivacyPolicy() {
                   <strong>Email:</strong>{' '}
                   <a href="mailto:info@rectifyinternational.com" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">
                     info@rectifyinternational.com
-                  </a>
-                </p>
-                <p className="mb-2">
-                  <strong>Phone (UK):</strong>{' '}
-                  <a href="tel:+447399836007" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">
-                    07399 836 007
                   </a>
                 </p>
                 <p className="mb-2">

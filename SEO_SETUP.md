@@ -40,7 +40,7 @@ Schema.org structured data implemented for:
 #### Home Page (`/`)
 - ProfessionalService structured data
 - Comprehensive service specialties listed
-- Geographic coverage (USA, UK, Europe)
+- Geographic coverage (United States primary, Germany secondary)
 
 #### Services Page (`/services`)
 - Service schema with detailed offer catalog
@@ -91,7 +91,7 @@ NEXT_PUBLIC_SITE_URL=https://rectifyinternational.com
 
 ### 3. Backlink Strategy
 - **Industry directories**: List in renewable energy and recruitment directories
-- **Local citations**: For UK, USA, and European locations
+- **Local citations**: For United States and Germany locations
 - **Guest content**: Write articles for industry publications
 - **Partnerships**: Link exchanges with complementary businesses
 - **Press releases**: For company news and achievements
@@ -137,9 +137,11 @@ NEXT_PUBLIC_SITE_URL=https://rectifyinternational.com
 
 ### Long-tail Keywords
 - Renewable energy recruitment USA
-- Solar PV recruitment consultants UK
-- Wind energy talent acquisition Europe
-- ESG recruitment specialists
+- Solar PV recruitment consultants United States
+- Wind energy talent acquisition Germany
+- ESG recruitment specialists Germany
+- Data centre recruitment Houston
+- Engineering recruitment Berlin
 
 ## Next Steps
 
