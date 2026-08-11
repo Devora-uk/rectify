@@ -33,7 +33,7 @@ const marketExperience = [
   {
     icon: Wind,
     title: 'Renewable energy',
-    copy: 'From wind and solar to storage, hydrogen and grid delivery — we understand the project cycles, technical interfaces and leadership profiles that keep the transition moving.',
+    copy: 'From wind and solar to storage, hydrogen and grid delivery, we understand the project cycles, technical interfaces and leadership profiles that keep the transition moving.',
   },
   {
     icon: Building2,
@@ -48,7 +48,7 @@ const marketExperience = [
   {
     icon: Globe2,
     title: 'United States and Germany',
-    copy: 'Our networks are focused exclusively on the United States and Germany — the only markets we serve.',
+    copy: 'Our networks are focused exclusively on the United States and Germany, the only markets we serve.',
   },
 ];
 
@@ -72,7 +72,7 @@ export default function AboutPage() {
           </div>
           <div className="border-l border-[#b8ccec] pl-6">
             <p className="text-lg leading-8 text-slate-600">
-              Rectify is a specialist recruitment partner for energy, engineering, infrastructure and mission-critical environments — built on market knowledge, honest communication and relationships that last.
+              Rectify is a specialist recruitment partner for energy, engineering, infrastructure and mission-critical environments, built on market knowledge, honest communication and relationships that last.
             </p>
             <Link href="/partner" className="magnetic-link mt-7">
               Partner with us <ArrowRight className="h-4 w-4" />
@@ -146,7 +146,7 @@ export default function AboutPage() {
               <span className="display-serif text-[#0b4ee8]"> stand for.</span>
             </h2>
             <p className="mt-6 leading-7 text-slate-600">
-              These principles shape how we advise clients, support candidates and show up as a team — in every market we serve.
+              These principles shape how we advise clients, support candidates and show up as a team in every market we serve.
             </p>
           </div>
 
@@ -241,7 +241,7 @@ export default function AboutPage() {
               <span className="display-serif text-[#42e5dd]">Delivery is everything.</span>
             </h2>
             <p className="mt-7 max-w-lg leading-7 text-blue-100/70">
-              Behind every brief is a team under pressure, a project at risk or a leader trying to build something important. We take that seriously — and we stay close until the outcome is right.
+              Behind every brief is a team under pressure, a project at risk or a leader trying to build something important. We take that seriously, and we stay close until the outcome is right.
             </p>
           </div>
 

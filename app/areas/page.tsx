@@ -27,7 +27,7 @@ export default function AreasPage() {
             <span className="display-serif text-[#0b4ee8]">Local intelligence.</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-600">
-            We deliver specialist search in the United States and Germany — our only markets — with deep networks and market intelligence in both.
+            We deliver specialist search in the United States and Germany, our only markets, with deep networks and market intelligence in both.
           </p>
         </div>
       </section>
@@ -108,7 +108,7 @@ export default function AreasPage() {
           <div>
             <h2 className="text-2xl font-semibold">Hiring in the US or Germany?</h2>
             <p className="mt-2 text-slate-600">
-              Tell us about the role and market — we will respond with a clear point of view.
+              Tell us about the role and market. We will respond with a clear point of view.
             </p>
           </div>
           <Link href="/contact" className="button-primary shrink-0">

@@ -68,7 +68,7 @@ export const metadata: Metadata = {
         url: `${baseUrl}/rectify-brand-banner.png`,
         width: 2508,
         height: 627,
-        alt: 'Rectify International — Your problem, we solved it.',
+        alt: 'Rectify International: Your problem, we solved it.',
       },
     ],
   },

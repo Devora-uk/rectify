@@ -63,7 +63,7 @@ export default function PartnerPage() {
           </div>
           <div className="max-w-2xl space-y-6 text-lg leading-8 text-slate-600">
             <p>
-              Rectify partners with companies in energy, engineering, infrastructure and mission-critical environments — especially where roles are scarce, searches have stalled, or the next twelve months will demand more than an ad hoc agency brief.
+              Rectify partners with companies in energy, engineering, infrastructure and mission-critical environments, especially where roles are scarce, searches have stalled, or the next twelve months will demand more than an ad hoc agency brief.
             </p>
             <p>
               If you need a long-term talent partner rather than another CV drop, this is the right place to start. If you have a single role to discuss first, you can still{' '}
@@ -73,7 +73,7 @@ export default function PartnerPage() {
               .
             </p>
             <p>
-              We are strongest in the United States and Germany — the only markets we serve.
+              We are strongest in the United States and Germany, the only markets we serve.
             </p>
           </div>
         </div>
@@ -127,7 +127,7 @@ export default function PartnerPage() {
               Eight questions. Then a conversation.
             </h2>
             <p className="mt-5 max-w-sm leading-7 text-slate-600">
-              This takes about eight minutes. Honest answers make a better fit call — and a clearer decision on both sides.
+              This takes about eight minutes. Honest answers make a better fit call, and a clearer decision on both sides.
             </p>
             <p className="mt-8 font-mono text-xs uppercase tracking-[.16em] text-[#0b4ee8]">
               Confidential · Assessed personally

@@ -8,11 +8,11 @@ import StructuredData from '@/components/StructuredData';
 const services = [
   { no:'01', icon:Users, title:'Strategic talent partnerships', text:'Long-term hiring support for businesses with repeat, project-based or multi-role needs.', points:['Dedicated search capacity','Structured delivery rhythm','Priority market access','Consistent employer story'] },
   { no:'02', icon:Search, title:'Specialist search & shortlist', text:'Targeted outreach for technical, engineering and project professionals who are difficult to reach.', points:['Passive candidate engagement','Technical qualification','Curated shortlists','Interview intelligence'] },
-  { no:'03', icon:BarChart3, title:'Market mapping & intelligence', text:'Evidence before action—giving leaders a clear view of skills, salary, availability and competition.', points:['Competitor talent mapping','Salary benchmarking','Location analysis','Skill-gap insight'] },
+  { no:'03', icon:BarChart3, title:'Market mapping & intelligence', text:'Evidence before action, giving leaders a clear view of skills, salary, availability and competition.', points:['Competitor talent mapping','Salary benchmarking','Location analysis','Skill-gap insight'] },
   { no:'04', icon:Network, title:'Executive & leadership search', text:'Discreet search for the leaders responsible for growth, delivery and technical direction.', points:['Regional leadership','Project directors','Technical executives','Department heads'] },
 ];
 const markets = [
-  {icon:Wind,title:'Renewable energy',tag:'Transition',items:['Wind—onshore & offshore','Solar and storage','Hydrogen','Grid and power delivery']},
+  {icon:Wind,title:'Renewable energy',tag:'Transition',items:['Wind (onshore and offshore)','Solar and storage','Hydrogen','Grid and power delivery']},
   {icon:Building2,title:'Engineering & infrastructure',tag:'Delivery',items:['MEP and building services','Civil and structural','Automation and controls','Major programmes']},
   {icon:Server,title:'Mission critical',tag:'Resilience',items:['Data centres','Commissioning and QA/QC','Electrical infrastructure','Cooling and controls']},
   {icon:Cpu,title:'Energy technology',tag:'Innovation',items:['Electrification','Energy software','Smart systems','Climate technology']},

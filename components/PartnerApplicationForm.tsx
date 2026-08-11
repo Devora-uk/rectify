@@ -180,7 +180,7 @@ export default function PartnerApplicationForm() {
 
       <Question
         number="03"
-        title="Which roles have historically been hardest for you to fill — and why?"
+        title="Which roles have historically been hardest for you to fill, and why?"
         hint="Role title, geography, what broke down. The more honest you are, the more useful the fit call will be."
       >
         <label className="sr-only" htmlFor="hardRoles">Hardest roles to fill</label>
@@ -192,14 +192,14 @@ export default function PartnerApplicationForm() {
           onChange={update}
           required
           maxLength={4000}
-          placeholder="Commissioning engineers in Germany — salary band was wrong and the agency shortlist never matched the technical brief."
+          placeholder="Commissioning engineers in Germany: salary band was wrong and the agency shortlist never matched the technical brief."
         />
       </Question>
 
       <Question
         number="04"
         title="What has broken down in your hiring process in the last 12 months?"
-        hint="Slow process, wrong salary band, poor agency performance, no candidates — whatever it actually was."
+        hint="Slow process, wrong salary band, poor agency performance, no candidates: whatever it actually was."
       >
         <label className="sr-only" htmlFor="processBreakdown">What has broken down in hiring</label>
         <textarea
@@ -282,7 +282,7 @@ export default function PartnerApplicationForm() {
           onChange={update}
           required
           maxLength={4000}
-          placeholder="What has shifted — and why a specialist partnership is the right move now."
+          placeholder="What has shifted, and why a specialist partnership is the right move now."
         />
       </Question>
 
