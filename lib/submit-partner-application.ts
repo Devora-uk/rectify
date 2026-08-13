@@ -105,17 +105,40 @@ async function confirmApplicantViaResend(application: PartnerApplicationPayload)
     text: [
       `Hi ${application.name},`,
       '',
-      `Thank you for applying to partner with Rectify on behalf of ${application.companyName}.`,
+      'Thank you for applying to partner with Rectify.',
       '',
       'We will assess the application and, if there is a fit, arrange a phone call with the hiring decision-maker.',
       '',
       'Rectify International',
     ].join('\n'),
     html: `
-      <p>Hi ${escapeHtml(application.name)},</p>
-      <p>Thank you for applying to partner with Rectify on behalf of <strong>${escapeHtml(application.companyName)}</strong>.</p>
-      <p>We will assess the application and, if there is a fit, arrange a phone call with the hiring decision-maker.</p>
-      <p>Rectify International</p>
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Partnership application received</title>
+        </head>
+        <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f2f8ff;">
+          <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+            <div style="background: linear-gradient(135deg, #03104b 0%, #0b4ee8 55%, #19ddd3 140%); padding: 36px 32px; border-radius: 16px 16px 0 0;">
+              <p style="margin: 0 0 10px; color: #19ddd3; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">Partnership application</p>
+              <h1 style="margin: 0; color: white; font-size: 30px; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em;">Thank you for applying</h1>
+            </div>
+            <div style="background-color: white; padding: 36px 32px; border-radius: 0 0 16px 16px; box-shadow: 0 20px 60px rgba(3, 16, 75, 0.1); border: 1px solid #dbe8f8; border-top: none;">
+              <p style="margin: 0 0 8px; font-size: 17px; color: #03104b; font-weight: 600;">Hi ${escapeHtml(application.name)},</p>
+              <p style="margin: 0 0 24px; font-size: 16px; color: #475569; line-height: 1.7;">Thank you for applying to partner with Rectify.</p>
+              <div style="margin: 0 0 28px; padding: 20px 22px; background: linear-gradient(180deg, #f2f8ff 0%, #ffffff 100%); border: 1px solid #dbe8f8; border-radius: 12px;">
+                <p style="margin: 0; font-size: 16px; color: #03104b; line-height: 1.7;">We will assess the application and, if there is a fit, arrange a phone call with the hiring decision-maker.</p>
+              </div>
+              <p style="margin: 0; font-size: 15px; color: #03104b; font-weight: 600;">Rectify International</p>
+              <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #e3edf9;">
+                <p style="margin: 0; font-size: 13px; color: #94a3b8; line-height: 1.6; text-align: center;">This is an automated confirmation from the Rectify partnership application form.</p>
+              </div>
+            </div>
+          </div>
+        </body>
+      </html>
     `,
   });
 
