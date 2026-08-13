@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowDown, ArrowRight, ArrowUpRight, BarChart3, BatteryCharging, Building2, MapPin, Search, Server, Users, Wind } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import PartnerLogos from '@/components/PartnerLogos';
 import StructuredData from '@/components/StructuredData';
 
 const CubeAnimation = dynamic(
@@ -56,6 +57,8 @@ export default function Home() {
 
       <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 whitespace-nowrap text-[9px] font-bold uppercase tracking-[.2em] text-blue-100/55"><ArrowDown className="h-4 w-4 text-[#5af0e7]"/> Explore Rectify</div>
     </section>
+
+    <PartnerLogos />
 
     <section className="border-b border-[#dbe8f8] py-24 lg:py-36">
       <div className="section-shell">
