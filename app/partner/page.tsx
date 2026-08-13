@@ -152,7 +152,7 @@ export default function PartnerPage() {
             '@type': 'Organization',
             name: 'Rectify International',
             url: baseUrl,
-            email: 'info@rectifyinternational.com',
+            email: 'isaac.salakov@rectifyinternational.com',
             telephone: '+17865791193',
           },
         }}

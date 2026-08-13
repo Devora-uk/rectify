@@ -74,7 +74,7 @@ export default function Home() {
 
     <section className="watercolor relative overflow-hidden border-y border-[#c9daee] px-5 py-24 lg:py-32"><div className="brand-grid absolute inset-0 opacity-30"/><div className="section-shell relative flex flex-col justify-between gap-10 lg:flex-row lg:items-end"><div><p className="eyebrow">A pivotal hire starts here</p><h2 className="mt-6 max-w-4xl text-5xl font-semibold leading-[.98] tracking-[-.055em] sm:text-7xl">Tell us what needs to <span className="display-serif text-[#0b4ee8]">change.</span></h2></div><Link href="/contact" className="button-primary shrink-0">Start a search <ArrowUpRight className="h-4 w-4" /></Link></div></section>
     <Footer />
-    <StructuredData data={{'@context':'https://schema.org','@type':'ProfessionalService',name:'Rectify International',url:baseUrl,email:'info@rectifyinternational.com',telephone:'+17865791193',areaServed:['US','DE'],serviceType:['Energy recruitment','Engineering recruitment','Infrastructure recruitment','Executive search']}} />
+    <StructuredData data={{'@context':'https://schema.org','@type':'ProfessionalService',name:'Rectify International',url:baseUrl,email:'isaac.salakov@rectifyinternational.com',telephone:'+17865791193',areaServed:['US','DE'],serviceType:['Energy recruitment','Engineering recruitment','Infrastructure recruitment','Executive search']}} />
   </main>;
 }
 

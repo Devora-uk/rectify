@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import { getNotificationEmail, getResendClient, getResendFrom } from '@/lib/resend';
 
 // Force dynamic rendering for this route since it handles form data
 export const dynamic = 'force-dynamic';
@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     if (!process.env.RESEND_API_KEY) {
       return NextResponse.json({ error: 'Email service is not configured' }, { status: 503 });
     }
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    const resend = getResendClient();
     const formData = await request.formData();
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
@@ -40,8 +40,8 @@ export async function POST(request: Request) {
 
     // Send email using Resend with attachment
     const { data, error } = await resend.emails.send({
-      from: 'Rectify CV Submissions <info@rectifyinternational.com>',
-      to: 'info@rectifyinternational.com',
+      from: getResendFrom('Rectify CV Submissions'),
+      to: getNotificationEmail(),
       replyTo: email,
       subject: `CV Submission from ${name}`,
       html: `

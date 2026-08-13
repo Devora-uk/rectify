@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import { getNotificationEmail, getResendClient, getResendFrom } from '@/lib/resend';
 
 export const dynamic = 'force-dynamic';
 
@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     if (!process.env.RESEND_API_KEY) {
       return NextResponse.json({ error: 'Email service is not configured' }, { status: 503 });
     }
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    const resend = getResendClient();
     const body = await request.json();
     const { name, email, company, message } = body;
 
@@ -22,8 +22,8 @@ export async function POST(request: Request) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'Rectify Enquiries <info@rectifyinternational.com>',
-      to: 'info@rectifyinternational.com',
+      from: getResendFrom('Rectify Enquiries'),
+      to: getNotificationEmail(),
       replyTo: email,
       subject: `New Enquiry from ${name}`,
       html: `

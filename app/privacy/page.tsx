@@ -198,8 +198,8 @@ export default function PrivacyPolicy() {
               </ul>
               <p className="mb-4">
                 To exercise these rights, please contact us at{' '}
-                <a href="mailto:info@rectifyinternational.com" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">
-                  info@rectifyinternational.com
+                <a href="mailto:isaac.salakov@rectifyinternational.com" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">
+                  isaac.salakov@rectifyinternational.com
                 </a>
               </p>
             </section>
@@ -250,8 +250,8 @@ export default function PrivacyPolicy() {
               <div className="bg-slate-50 p-6 rounded-lg border border-slate-200">
                 <p className="mb-2">
                   <strong>Email:</strong>{' '}
-                  <a href="mailto:info@rectifyinternational.com" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">
-                    info@rectifyinternational.com
+                  <a href="mailto:isaac.salakov@rectifyinternational.com" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">
+                    isaac.salakov@rectifyinternational.com
                   </a>
                 </p>
                 <p className="mb-2">

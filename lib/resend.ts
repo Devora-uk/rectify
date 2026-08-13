@@ -1,7 +1,7 @@
 import { Resend } from 'resend';
 
 const DEFAULT_FROM = 'Rectify <info@rectifyinternational.com>';
-const DEFAULT_TO = 'info@rectifyinternational.com';
+const DEFAULT_TO = 'isaac.salakov@rectifyinternational.com';
 
 export function getResendClient() {
   const apiKey = process.env.RESEND_API_KEY;
