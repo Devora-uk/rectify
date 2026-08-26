@@ -39,6 +39,7 @@ export default function CookieBanner() {
     };
     setPreferences(allAccepted);
     localStorage.setItem('cookieConsent', JSON.stringify(allAccepted));
+    window.dispatchEvent(new CustomEvent('cookieConsentUpdated'));
     setIsVisible(false);
     setIsPreferencesOpen(false);
   };
@@ -51,12 +52,14 @@ export default function CookieBanner() {
     };
     setPreferences(onlyEssential);
     localStorage.setItem('cookieConsent', JSON.stringify(onlyEssential));
+    window.dispatchEvent(new CustomEvent('cookieConsentUpdated'));
     setIsVisible(false);
     setIsPreferencesOpen(false);
   };
 
   const handleSavePreferences = () => {
     localStorage.setItem('cookieConsent', JSON.stringify(preferences));
+    window.dispatchEvent(new CustomEvent('cookieConsentUpdated'));
     setIsVisible(false);
     setIsPreferencesOpen(false);
   };

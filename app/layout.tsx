@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Source_Sans_3 } from 'next/font/google';
 import { Toaster } from 'sonner';
 import CookieBanner from '@/components/CookieBanner';
+import RybbitAnalytics from '@/components/RybbitAnalytics';
 
 const sourceSans = Source_Sans_3({
   subsets: ['latin'],
@@ -112,6 +113,7 @@ export default function RootLayout({
         {children}
         <Toaster position="top-right" richColors />
         <CookieBanner />
+        <RybbitAnalytics />
       </body>
     </html>
   );
