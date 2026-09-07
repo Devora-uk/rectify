@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { getPublishedInsights, insightPath } from '@/lib/insights';
 import { locations } from '@/lib/locations';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -23,6 +24,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/insights`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    ...getPublishedInsights().map((article) => ({
+      url: `${baseUrl}${insightPath(article.slug)}`,
+      lastModified: new Date(article.updatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    })),
     {
       url: `${baseUrl}/areas`,
       lastModified: new Date(),
