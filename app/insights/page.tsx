@@ -22,7 +22,7 @@ export default function InsightsPage() {
   const rest = insights.slice(1);
 
   return (
-    <main className="overflow-hidden bg-white text-[#03104b]">
+    <main className="bg-white text-[#03104b]">
       <Navigation activePage="insights" />
 
       <section className="watercolor relative pb-20 pt-36 lg:pb-28 lg:pt-44">
@@ -30,13 +30,13 @@ export default function InsightsPage() {
         <div className="section-shell relative grid gap-12 lg:grid-cols-[1fr_.42fr] lg:items-end">
           <div>
             <p className="eyebrow">Insights</p>
-            <h1 className="mt-8 max-w-5xl text-6xl font-semibold leading-[.91] tracking-[-.065em] sm:text-8xl">
+            <h1 className="mt-8 max-w-5xl text-4xl font-semibold leading-[1.02] tracking-[-.04em] sm:text-6xl sm:leading-[.94] sm:tracking-[-.055em] lg:text-8xl lg:leading-[.91] lg:tracking-[-.065em]">
               Market intelligence
               <br />
               <span className="display-serif text-[#0b4ee8]">before the search.</span>
             </h1>
           </div>
-          <p className="border-l border-[#b8ccec] pl-6 text-lg leading-8 text-slate-600">
+          <p className="border-l border-[#b8ccec] pl-6 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
             Notes on the hiring constraints that actually move a commissioning date: skills, titles, regions and the people operators cannot replace with megawatts.
           </p>
         </div>
@@ -65,7 +65,7 @@ export default function InsightsPage() {
                   <p className="font-mono text-[10px] font-semibold uppercase tracking-[.2em] text-[#0b4ee8]">
                     {formatDate(featured.publishedAt)} · {featured.readingMinutes} min read
                   </p>
-                  <h2 className="mt-5 text-3xl font-semibold leading-[1.05] tracking-[-.04em] sm:text-4xl">
+                  <h2 className="mt-5 break-words text-2xl font-semibold leading-[1.08] tracking-[-.03em] sm:text-3xl sm:leading-[1.05] sm:tracking-[-.04em] lg:text-4xl">
                     <Link href={insightPath(featured.slug)} className="transition hover:text-[#0b4ee8]">
                       {featured.title}
                       {featured.titleHighlight ? ` ${featured.titleHighlight}` : ''}
@@ -73,8 +73,8 @@ export default function InsightsPage() {
                   </h2>
                   <p className="mt-6 text-base leading-8 text-slate-600">{featured.dek}</p>
                 </div>
-                <div className="mt-10 flex items-center justify-between gap-4 border-t border-[#e3edf9] pt-6">
-                  <div className="flex items-center gap-3">
+                <div className="mt-10 flex flex-col gap-4 border-t border-[#e3edf9] pt-6 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex min-w-0 items-center gap-3">
                     <Image
                       src={featured.author.image}
                       alt={featured.author.imageAlt}
@@ -82,12 +82,12 @@ export default function InsightsPage() {
                       height={44}
                       className="h-11 w-11 rounded-full object-cover object-top"
                     />
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-sm font-semibold">{featured.author.name}</p>
                       <p className="text-xs text-slate-500">{featured.author.role}</p>
                     </div>
                   </div>
-                  <Link href={insightPath(featured.slug)} className="magnetic-link shrink-0">
+                  <Link href={insightPath(featured.slug)} className="magnetic-link shrink-0 self-start sm:self-auto">
                     Read the briefing <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
@@ -119,7 +119,7 @@ export default function InsightsPage() {
                       {article.titleHighlight ? ` ${article.titleHighlight}` : ''}
                     </Link>
                   </h2>
-                  <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-600">{article.dek}</p>
+                  <p className="mt-3 text-sm leading-6 text-slate-600 sm:line-clamp-3">{article.dek}</p>
                   <Link href={insightPath(article.slug)} className="magnetic-link mt-6">
                     Read the briefing <ArrowRight className="h-4 w-4" />
                   </Link>
@@ -166,7 +166,7 @@ export default function InsightsPage() {
         <div className="section-shell flex flex-col justify-between gap-9 lg:flex-row lg:items-end">
           <div>
             <p className="eyebrow">Hiring against a date</p>
-            <h2 className="mt-5 max-w-3xl text-5xl font-semibold tracking-[-.05em] sm:text-6xl">
+            <h2 className="mt-5 max-w-3xl text-3xl font-semibold tracking-[-.03em] sm:text-5xl sm:tracking-[-.045em] lg:text-6xl lg:tracking-[-.05em]">
               Power is a plan.
               <span className="display-serif text-[#0b4ee8]"> People are the constraint.</span>
             </h2>

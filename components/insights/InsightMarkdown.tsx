@@ -34,7 +34,7 @@ export function InsightWorkforceTable({ article }: { article: InsightArticle }) 
         Workforce by role{article.sources ? '. Source noted at the end of this briefing.' : '.'}
       </figcaption>
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[32rem] border-collapse text-left text-sm">
+        <table className="w-full min-w-[20rem] border-collapse text-left text-sm sm:min-w-[32rem]">
           <thead>
             <tr className="border-b border-[#0b4ee8] text-[10px] font-bold uppercase tracking-[.16em] text-[#0b4ee8]">
               <th scope="col" className="py-3 pr-4 font-bold">Role group</th>
@@ -63,17 +63,17 @@ function MarkdownChunk({ content }: { content: string }) {
       remarkPlugins={[remarkGfm]}
       components={{
         h2: ({ children }) => (
-          <h2 id={headingId(children)} className="mt-16 scroll-mt-28 text-3xl font-semibold tracking-[-.04em] sm:text-4xl">
+          <h2 id={headingId(children)} className="mt-16 scroll-mt-28 break-words text-2xl font-semibold tracking-[-.03em] sm:text-3xl sm:tracking-[-.035em] lg:text-4xl lg:tracking-[-.04em]">
             {children}
           </h2>
         ),
         h3: ({ children }) => (
-          <h3 id={headingId(children)} className="mt-12 scroll-mt-28 text-2xl font-semibold tracking-[-.03em]">
+          <h3 id={headingId(children)} className="mt-12 scroll-mt-28 break-words text-xl font-semibold tracking-[-.02em] sm:text-2xl sm:tracking-[-.03em]">
             {children}
           </h3>
         ),
         p: ({ children }) => (
-          <p className="mt-6 text-[1.05rem] leading-8 text-slate-600 first:mt-0">{children}</p>
+          <p className="mt-6 break-words text-base leading-7 text-slate-600 first:mt-0 sm:text-[1.05rem] sm:leading-8">{children}</p>
         ),
         a: ({ href, children }) => {
           if (href?.startsWith('/')) {
@@ -101,7 +101,7 @@ function MarkdownChunk({ content }: { content: string }) {
           if (stat && /^[\d,.\s%€$£+~-]+$/.test(stat) && copy) {
             return (
               <aside className="my-12 border-y border-[#bdcee4] py-10">
-                <p className="text-7xl font-semibold tracking-[-.06em] text-[#0b4ee8]">{stat}</p>
+                <p className="break-words text-4xl font-semibold tracking-[-.03em] text-[#0b4ee8] sm:text-6xl sm:tracking-[-.05em] lg:text-7xl lg:tracking-[-.06em]">{stat}</p>
                 <p className="mt-4 max-w-xl text-lg leading-8 text-[#03104b]">{copy}</p>
                 {source ? (
                   <p className="mt-3 text-xs font-semibold uppercase tracking-[.16em] text-slate-500">{source}</p>
@@ -110,14 +110,14 @@ function MarkdownChunk({ content }: { content: string }) {
             );
           }
           return (
-            <blockquote className="my-10 border-l-2 border-[#19ddd3] pl-6 text-xl leading-9 text-[#03104b]">
+            <blockquote className="my-10 break-words border-l-2 border-[#19ddd3] pl-6 text-lg leading-8 text-[#03104b] sm:text-xl sm:leading-9">
               {children}
             </blockquote>
           );
         },
         table: ({ children }) => (
           <div className="my-10 overflow-x-auto">
-            <table className="w-full min-w-[32rem] border-collapse text-left text-sm">{children}</table>
+            <table className="w-full min-w-[20rem] border-collapse text-left text-sm sm:min-w-[32rem]">{children}</table>
           </div>
         ),
         thead: ({ children }) => <thead>{children}</thead>,
@@ -139,7 +139,7 @@ export function InsightBody({ article }: { article: InsightArticle }) {
   const hasMarker = chunks.length > 1;
 
   return (
-    <div>
+    <div className="min-w-0">
       {chunks.map((chunk, index) => (
         <div key={index}>
           {chunk.trim() ? <MarkdownChunk content={chunk} /> : null}

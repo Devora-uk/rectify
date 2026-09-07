@@ -75,7 +75,7 @@ export default function InsightArticlePage({ params }: Props) {
     : article.title;
 
   return (
-    <main className="overflow-hidden bg-white text-[#03104b]">
+    <main className="bg-white text-[#03104b]">
       <Navigation activePage="insights" />
 
       <article>
@@ -89,7 +89,7 @@ export default function InsightArticlePage({ params }: Props) {
             </nav>
 
             <p className="eyebrow mt-12">{article.category}</p>
-            <h1 className="mt-7 max-w-5xl text-[2.35rem] font-semibold leading-[1.02] tracking-[-.055em] sm:text-6xl lg:text-7xl">
+            <h1 className="mt-7 max-w-5xl break-words text-[2rem] font-semibold leading-[1.06] tracking-[-.03em] sm:text-[2.35rem] sm:tracking-[-.045em] sm:leading-[1.02] lg:text-6xl lg:tracking-[-.055em] xl:text-7xl">
               {article.titleHighlight ? (
                 <>
                   {article.title}{' '}
@@ -132,7 +132,7 @@ export default function InsightArticlePage({ params }: Props) {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#020d3b]/88 via-[#020d3b]/45 to-transparent" />
               {article.heroQuote ? (
                 <div className="absolute inset-0 flex items-end p-8 sm:p-12">
-                  <p className="max-w-xl text-2xl font-semibold leading-tight tracking-[-.03em] text-white sm:text-3xl">
+                  <p className="max-w-xl break-words text-xl font-semibold leading-snug tracking-[-.02em] text-white sm:text-2xl sm:leading-tight sm:tracking-[-.03em] lg:text-3xl">
                     {article.heroQuote}
                   </p>
                 </div>
@@ -147,7 +147,7 @@ export default function InsightArticlePage({ params }: Props) {
               <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
                 <div>
                   <p className="eyebrow">Figures in view</p>
-                  <h2 id="capacity-heading" className="mt-4 scroll-mt-28 text-3xl font-semibold tracking-[-.04em] sm:text-4xl">
+                <h2 id="capacity-heading" className="mt-4 scroll-mt-28 break-words text-2xl font-semibold tracking-[-.03em] sm:text-3xl sm:tracking-[-.035em] lg:text-4xl lg:tracking-[-.04em]">
                     The numbers behind this briefing
                   </h2>
                 </div>
@@ -162,7 +162,7 @@ export default function InsightArticlePage({ params }: Props) {
                     <p className="font-mono text-[10px] font-semibold uppercase tracking-[.18em] text-[#0b4ee8]">
                       {String(index + 1).padStart(2, '0')} · {point.note}
                     </p>
-                    <p className="mt-4 text-5xl font-semibold tracking-[-.05em]">{point.value}</p>
+                    <p className="mt-4 break-words text-3xl font-semibold tracking-[-.03em] sm:text-4xl sm:tracking-[-.04em] lg:text-5xl lg:tracking-[-.05em]">{point.value}</p>
                     <p className="mt-2 text-sm text-slate-600">{point.label}</p>
                   </li>
                 ))}
@@ -171,12 +171,12 @@ export default function InsightArticlePage({ params }: Props) {
           </section>
         ) : null}
 
-        <div className="section-shell grid gap-14 py-16 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-20 lg:py-24">
-          <div className="max-w-[720px]">
+        <div className="section-shell grid min-w-0 gap-14 py-16 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-20 lg:py-24">
+          <div className="min-w-0 max-w-[720px]">
             {article.dek ? (
               <>
                 <p className="text-[10px] font-bold uppercase tracking-[.22em] text-[#0b4ee8]">The short version</p>
-                <p className="mt-5 border-l-2 border-[#19ddd3] pl-6 text-xl leading-9 text-[#03104b]">
+                <p className="mt-5 break-words border-l-2 border-[#19ddd3] pl-6 text-lg leading-8 text-[#03104b] sm:text-xl sm:leading-9">
                   {article.dek}
                   {article.heroQuote ? ` ${article.heroQuote}` : ''}
                 </p>
@@ -220,7 +220,7 @@ export default function InsightArticlePage({ params }: Props) {
           <div className="section-shell relative grid gap-10 lg:grid-cols-[1.2fr_.8fr] lg:items-center">
             <div>
               <p className="eyebrow !text-[#42e5dd]">If this is your problem</p>
-              <h2 className="mt-6 max-w-3xl text-4xl font-semibold leading-[1.05] tracking-[-.045em] sm:text-5xl">
+              <h2 className="mt-6 max-w-3xl break-words text-3xl font-semibold leading-[1.08] tracking-[-.03em] sm:text-4xl sm:leading-[1.05] sm:tracking-[-.045em] lg:text-5xl">
                 If you are hiring against a date, it is worth a conversation.
               </h2>
               <p className="mt-6 max-w-xl leading-8 text-blue-100/70">
@@ -243,7 +243,7 @@ export default function InsightArticlePage({ params }: Props) {
             <div className="section-shell grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
               <div>
                 <p className="eyebrow">Questions operators ask</p>
-                <h2 id="faq-heading" className="mt-6 text-4xl font-semibold tracking-[-.04em] sm:text-5xl">
+                <h2 id="faq-heading" className="mt-6 break-words text-3xl font-semibold tracking-[-.03em] sm:text-4xl sm:tracking-[-.035em] lg:text-5xl lg:tracking-[-.04em]">
                   Frequently asked questions
                 </h2>
               </div>
@@ -251,8 +251,8 @@ export default function InsightArticlePage({ params }: Props) {
                 {article.faqs.map((faq) => (
                   <details key={faq.question} className="group py-6">
                     <summary className="cursor-pointer list-none text-lg font-semibold tracking-[-.02em] marker:content-none [&::-webkit-details-marker]:hidden">
-                      <span className="flex items-start justify-between gap-6">
-                        {faq.question}
+                      <span className="flex items-start justify-between gap-4 sm:gap-6">
+                        <span className="min-w-0 break-words">{faq.question}</span>
                         <span className="mt-1 font-mono text-xs text-[#0b4ee8] group-open:hidden">+</span>
                         <span className="mt-1 hidden font-mono text-xs text-[#0b4ee8] group-open:inline">–</span>
                       </span>
