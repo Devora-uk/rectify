@@ -167,7 +167,7 @@ export function InsightBody({ article }: { article: InsightArticle }) {
 }
 
 export function parseSourceLinks(sources: string) {
-  const links = [...sources.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g)].map((match) => ({
+  const links = Array.from(sources.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g)).map((match) => ({
     name: match[1],
     url: match[2].replace(/&amp;/g, '&'),
   }));
@@ -204,8 +204,8 @@ export function InsightSources({ sources }: { sources: string }) {
 
 export function insightCitationUrls(article: InsightArticle) {
   const fromSources = parseSourceLinks(article.sources).links.map((link) => link.url);
-  const fromBody = [...article.body.matchAll(/\]\((https?:\/\/[^)\s]+)\)/g)].map((match) => match[1]);
-  return [...new Set([...fromSources, ...fromBody])];
+  const fromBody = Array.from(article.body.matchAll(/\]\((https?:\/\/[^)\s]+)\)/g)).map((match) => match[1]);
+  return Array.from(new Set(fromSources.concat(fromBody)));
 }
 
 export function insightHeadings(body: string) {
