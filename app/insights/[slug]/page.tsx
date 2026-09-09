@@ -6,7 +6,7 @@ import { ArrowRight, ArrowUpRight, ChevronRight } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import StructuredData from '@/components/StructuredData';
-import { InsightBody, insightHeadings } from '@/components/insights/InsightMarkdown';
+import { InsightBody, InsightSources, insightCitationUrls, insightHeadings } from '@/components/insights/InsightMarkdown';
 import { getPublishedInsight, getPublishedInsights, insightPath } from '@/lib/insights';
 
 type Props = { params: { slug: string } };
@@ -70,6 +70,7 @@ export default function InsightArticlePage({ params }: Props) {
 
   const url = `${baseUrl}${insightPath(article.slug)}`;
   const headings = insightHeadings(article.body);
+  const citations = insightCitationUrls(article);
   const fullTitle = article.titleHighlight
     ? `${article.title.replace(/\s+$/, '')} ${article.titleHighlight}`
     : article.title;
@@ -268,7 +269,7 @@ export default function InsightArticlePage({ params }: Props) {
         {article.sources ? (
           <footer className="section-shell py-16">
             <p className="text-[10px] font-bold uppercase tracking-[.2em] text-[#0b4ee8]">Sources</p>
-            <p className="mt-4 max-w-4xl text-sm leading-7 text-slate-500">{article.sources}</p>
+            <InsightSources sources={article.sources} />
           </footer>
         ) : null}
       </article>
@@ -309,6 +310,9 @@ export default function InsightArticlePage({ params }: Props) {
               inLanguage: 'en-GB',
               articleSection: article.category,
               keywords: article.keywords.join(', '),
+              ...(citations.length
+                ? { citation: citations.map((citationUrl) => ({ '@type': 'CreativeWork', url: citationUrl })) }
+                : {}),
             },
             ...(article.faqs.length
               ? [{

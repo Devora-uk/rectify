@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Children, isValidElement, type ReactNode } from 'react';
+import { isValidElement, type ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import type { InsightArticle } from '@/lib/insight-types';
@@ -9,6 +9,24 @@ function nodeText(node: ReactNode): string {
   if (Array.isArray(node)) return node.map(nodeText).join('\n');
   if (isValidElement(node)) return nodeText(node.props.children);
   return '';
+}
+
+const linkClass = 'font-semibold text-[#0b4ee8] underline decoration-[#0b4ee8]/35 underline-offset-4 hover:decoration-[#0b4ee8]';
+
+export function InsightLink({ href, children }: { href?: string; children: ReactNode }) {
+  if (href?.startsWith('/')) {
+    return (
+      <Link href={href} className={linkClass}>
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <a href={href} className={linkClass} target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
+  );
 }
 
 function headingId(children: ReactNode) {
@@ -75,20 +93,7 @@ function MarkdownChunk({ content }: { content: string }) {
         p: ({ children }) => (
           <p className="mt-6 break-words text-base leading-7 text-slate-600 first:mt-0 sm:text-[1.05rem] sm:leading-8">{children}</p>
         ),
-        a: ({ href, children }) => {
-          if (href?.startsWith('/')) {
-            return (
-              <Link href={href} className="font-semibold text-[#0b4ee8] underline-offset-4 hover:underline">
-                {children}
-              </Link>
-            );
-          }
-          return (
-            <a href={href} className="font-semibold text-[#0b4ee8] underline-offset-4 hover:underline" rel="noreferrer">
-              {children}
-            </a>
-          );
-        },
+        a: ({ href, children }) => <InsightLink href={href}>{children}</InsightLink>,
         ul: ({ children }) => <ul className="mt-6 list-disc space-y-2 pl-6 text-[1.05rem] leading-8 text-slate-600">{children}</ul>,
         ol: ({ children }) => <ol className="mt-6 list-decimal space-y-2 pl-6 text-[1.05rem] leading-8 text-slate-600">{children}</ol>,
         li: ({ children }) => <li>{children}</li>,
@@ -149,6 +154,29 @@ export function InsightBody({ article }: { article: InsightArticle }) {
       {!hasMarker ? <InsightWorkforceTable article={article} /> : null}
     </div>
   );
+}
+
+export function InsightSources({ sources }: { sources: string }) {
+  if (!sources.trim()) return null;
+
+  return (
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      components={{
+        p: ({ children }) => (
+          <p className="mt-4 max-w-4xl text-sm leading-7 text-slate-500">{children}</p>
+        ),
+        a: ({ href, children }) => <InsightLink href={href}>{children}</InsightLink>,
+      }}
+    >
+      {sources}
+    </ReactMarkdown>
+  );
+}
+
+export function insightCitationUrls(article: InsightArticle) {
+  const text = `${article.sources}\n${article.body}`;
+  return [...new Set([...text.matchAll(/\]\((https?:\/\/[^)\s]+)\)/g)].map((match) => match[1]))];
 }
 
 export function insightHeadings(body: string) {
