@@ -85,7 +85,7 @@ The logic is simple once you sit with it. Power is a capital and planning proble
 >
 > of enterprise data centre operators rank finding qualified technical staff as their number-one challenge for the next three years, ahead of energy and regulation.
 >
-> Source: German Datacenter Association, 2024
+> Source: [German Datacenter Association, 2024](https://www.germandatacenters.com/fileadmin/images/DCIRD-24/Data-Center-Impact-Report-Deutschland-2024_EN.pdf)
 
 ## The roles that decide whether a site goes live
 
@@ -117,7 +117,7 @@ The biggest single obstacle to hiring is a lack of qualified young professionals
 >
 > trainees and dual-study students across a 5,000-strong colocation and hyperscale workforce. The pipeline is not replacing the people the build-out needs.
 >
-> Source: German Datacenter Association, 2024
+> Source: [German Datacenter Association, 2024](https://www.germandatacenters.com/fileadmin/images/DCIRD-24/Data-Center-Impact-Report-Deutschland-2024_EN.pdf)
 
 There is a large pool going almost untouched, too. Only about 5% of technical data centre staff in Germany are women, roughly 1,300 people, and just 10% across all roles. As a fairness point, that is an old conversation. As a recruitment problem, it is a talent reserve the sector has barely started to work. You cannot hire your way out of a shortage the schools and apprenticeships are not filling. Not this decade. In the meantime, the experienced engineers who already exist get fought over, hard.
 

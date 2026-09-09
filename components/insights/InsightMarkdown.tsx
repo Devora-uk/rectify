@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { isValidElement, type ReactNode } from 'react';
+import { Children, isValidElement, type ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import type { InsightArticle } from '@/lib/insight-types';
@@ -37,19 +37,25 @@ function headingId(children: ReactNode) {
     .replace(/^-+|-+$/g, '');
 }
 
-function blockquoteParts(children: ReactNode) {
-  const text = nodeText(children).trim();
-  const lines = text.split('\n').map((line) => line.trim()).filter(Boolean);
-  return lines;
-}
-
 export function InsightWorkforceTable({ article }: { article: InsightArticle }) {
   if (!article.workforce.length) return null;
+
+  const tableSource = parseSourceLinks(article.sources).links[0];
 
   return (
     <figure className="my-10">
       <figcaption className="mb-4 text-sm font-semibold text-[#03104b]">
-        Workforce by role{article.sources ? '. Source noted at the end of this briefing.' : '.'}
+        Workforce by role
+        {tableSource ? (
+          <>
+            .{' '}
+            <InsightLink href={tableSource.url}>Source: {tableSource.name}</InsightLink>
+          </>
+        ) : article.sources ? (
+          '. Source noted at the end of this briefing.'
+        ) : (
+          '.'
+        )}
       </figcaption>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[20rem] border-collapse text-left text-sm sm:min-w-[32rem]">
@@ -99,17 +105,21 @@ function MarkdownChunk({ content }: { content: string }) {
         li: ({ children }) => <li>{children}</li>,
         strong: ({ children }) => <strong className="font-semibold text-[#03104b]">{children}</strong>,
         blockquote: ({ children }) => {
-          const parts = blockquoteParts(children);
+          const nodes = Children.toArray(children);
+          const sourceNode = nodes.find((node) => /^source:/i.test(nodeText(node).trim()));
+          const contentNodes = nodes.filter((node) => node !== sourceNode);
+          const parts = nodeText(contentNodes).trim().split('\n').map((line) => line.trim()).filter(Boolean);
           const [stat, ...rest] = parts;
-          const source = rest.find((line) => /^source:/i.test(line));
-          const copy = rest.filter((line) => line !== source).join(' ');
+          const copy = rest.join(' ');
           if (stat && /^[\d,.\s%€$£+~-]+$/.test(stat) && copy) {
             return (
               <aside className="my-12 border-y border-[#bdcee4] py-10">
                 <p className="break-words text-4xl font-semibold tracking-[-.03em] text-[#0b4ee8] sm:text-6xl sm:tracking-[-.05em] lg:text-7xl lg:tracking-[-.06em]">{stat}</p>
                 <p className="mt-4 max-w-xl text-lg leading-8 text-[#03104b]">{copy}</p>
-                {source ? (
-                  <p className="mt-3 text-xs font-semibold uppercase tracking-[.16em] text-slate-500">{source}</p>
+                {sourceNode ? (
+                  <p className="mt-3 text-xs font-semibold uppercase tracking-[.16em] text-slate-500">
+                    {isValidElement(sourceNode) ? sourceNode.props.children : sourceNode}
+                  </p>
                 ) : null}
               </aside>
             );
@@ -156,27 +166,46 @@ export function InsightBody({ article }: { article: InsightArticle }) {
   );
 }
 
+export function parseSourceLinks(sources: string) {
+  const links = [...sources.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g)].map((match) => ({
+    name: match[1],
+    url: match[2].replace(/&amp;/g, '&'),
+  }));
+  const notes = sources
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '')
+    .replace(/^[.;\s,]+|[.;\s,]+$/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+
+  return { links, notes };
+}
+
 export function InsightSources({ sources }: { sources: string }) {
   if (!sources.trim()) return null;
 
+  const { links, notes } = parseSourceLinks(sources);
+  if (!links.length) {
+    return <p className="mt-4 max-w-4xl text-sm leading-7 text-slate-500">{sources}</p>;
+  }
+
   return (
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      components={{
-        p: ({ children }) => (
-          <p className="mt-4 max-w-4xl text-sm leading-7 text-slate-500">{children}</p>
-        ),
-        a: ({ href, children }) => <InsightLink href={href}>{children}</InsightLink>,
-      }}
-    >
-      {sources}
-    </ReactMarkdown>
+    <div className="mt-5 max-w-4xl">
+      <ul className="space-y-3 text-sm leading-7">
+        {links.map((link) => (
+          <li key={link.url}>
+            <InsightLink href={link.url}>{link.name}</InsightLink>
+          </li>
+        ))}
+      </ul>
+      {notes ? <p className="mt-5 text-sm leading-7 text-slate-500">{notes}</p> : null}
+    </div>
   );
 }
 
 export function insightCitationUrls(article: InsightArticle) {
-  const text = `${article.sources}\n${article.body}`;
-  return [...new Set([...text.matchAll(/\]\((https?:\/\/[^)\s]+)\)/g)].map((match) => match[1]))];
+  const fromSources = parseSourceLinks(article.sources).links.map((link) => link.url);
+  const fromBody = [...article.body.matchAll(/\]\((https?:\/\/[^)\s]+)\)/g)].map((match) => match[1]);
+  return [...new Set([...fromSources, ...fromBody])];
 }
 
 export function insightHeadings(body: string) {
