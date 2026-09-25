@@ -122,13 +122,14 @@ Reading the whole board is only half the job. The other half is moving on a spec
 
 Treat talent as the binding constraint in capacity planning, not an afterthought once the site is approved. That means widening the search beyond the local market, moving faster on offers than competitors do, and vetting technical candidates against the specific demands of critical facilities rather than generic engineering CVs.
 
-Germany carries the deepest data on this, and we have set it out in full in our [breakdown of the German data centre talent shortage](/insights/germany-data-centre-talent-shortage), down to the workforce split by role, the regional picture beyond Frankfurt, and the training pipeline that isn't replacing people fast enough. The short version is that the German picture matches the regional one exactly. A generalist recruiter can't reliably assess a high-voltage commissioning engineer or a BMS specialist for a data centre role, which is why specialist matching now decides whether a project hits its date. If you're planning German capacity and want to know where the talent pressure sits for the roles you need, that is a conversation worth having early.
+Germany carries the deepest data on this, and we have set it out in full in our [breakdown of the German data centre talent shortage](/insights/germany-data-centre-talent-shortage), down to the workforce split by role, the regional picture beyond Frankfurt, and the training pipeline that isn't replacing people fast enough. The short version is that the German picture matches the regional one exactly. A generalist recruiter can't reliably assess a high-voltage commissioning engineer or a BMS specialist for a data centre role, which is why specialist matching now decides whether a project hits its date. How that search is paid for matters just as much: the model that looks cheapest is often the one that costs the build the most, set out in [data centre recruitment in Germany](/insights/data-centre-recruitment-germany). If you're planning German capacity and want to know where the talent pressure sits for the roles you need, that is a conversation worth having early.
 
 [Talk to Rectify about hiring for German data centre projects](/contact)
 
 ## Related resources
 
 - [The German data centre talent shortage in full: engineers, not power](/insights/germany-data-centre-talent-shortage)
+- [Data centre recruitment in Germany: why the cheapest hire costs the most](/insights/data-centre-recruitment-germany)
 - [Data centre and MEP recruitment across Germany](/areas/germany)
 - [Hiring engineers in Frankfurt: the FLAP-D data centre hub](/areas/germany/frankfurt)
 - [How Rectify places specialist data centre talent](/services)
