@@ -1,11 +1,11 @@
 ---
-slug: data-centre-recruitment-germany
+slug: european-data-centre-talent-shortage
 status: published
 category: European Market Intelligence · Data Centre Recruitment
 breadcrumb: Hiring for the build
 title: "Europe's data centre talent shortage is worst"
 titleHighlight: "where the power is cheapest."
-seoTitle: "Data Centre Recruitment in Germany: Hiring Where Power Is Cheapest"
+seoTitle: "Europe's Data Centre Talent Shortage: Worst Where Power Is Cheapest"
 dek: "For operators, developers and hiring leads planning data centre capacity in Europe, with Germany as the anchor market. The engineering-talent shortage is a European problem rather than a local one."
 heroQuote: Sweden and Finland are the clearest evidence. The shortage bites hardest where the power is cheapest.
 description: How to hire for German data centre builds when the engineering shortage is regional. Sweden and Finland show it bites hardest where power is cheapest, and a German search has to be run that way.

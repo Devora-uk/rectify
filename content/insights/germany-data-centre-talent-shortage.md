@@ -135,4 +135,4 @@ Strip the noise away and three things hold. The binding constraint on German dat
 
 If your plan leans on hiring these engineers at pace, the market is tighter than a raw vacancy count suggests, and it stays tight for years. Knowing the discipline, the German titles, the salary bands and where the movable people actually sit is the difference between a slipped launch and a live hall. That is the specific ground Rectify covers across the [German market](/areas/germany).
 
-The same engineers are hired from a shared Northern European pool. Sweden and Finland show the shortage biting where power is cheapest, which changes how a German search has to be run. That hiring picture is set out in [data centre recruitment for these builds](/insights/data-centre-recruitment-germany).
+The same engineers are hired from a shared Northern European pool. Sweden and Finland show the shortage biting where power is cheapest, which changes how a German search has to be run. That hiring picture is set out in [Europe's data centre talent shortage, where the power is cheapest](/insights/european-data-centre-talent-shortage).

@@ -46,6 +46,11 @@ const nextConfig = {
         destination: '/areas/united-states',
         permanent: true,
       },
+      {
+        source: '/insights/data-centre-recruitment-germany',
+        destination: '/insights/european-data-centre-talent-shortage',
+        permanent: true,
+      },
     ];
   },
 };
