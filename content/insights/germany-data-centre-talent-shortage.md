@@ -19,7 +19,7 @@ keywords:
   - Berlin data centre talent
   - German Datacenter Association 2024
 publishedAt: 2026-09-07
-updatedAt: 2026-09-09
+updatedAt: 2026-09-25
 readingMinutes: 9
 author:
   name: Isaac Vassell
@@ -134,3 +134,5 @@ All of that capex competes for the same finite bench of qualified engineers. The
 Strip the noise away and three things hold. The binding constraint on German data centre growth is people, not power. The scarcest of those people are the building-services and commissioning engineers who make the physical plant work, the ones the headlines skip. And the pipeline that should replace them is producing a rounding error, which means the pressure gets worse before it eases, not better.
 
 If your plan leans on hiring these engineers at pace, the market is tighter than a raw vacancy count suggests, and it stays tight for years. Knowing the discipline, the German titles, the salary bands and where the movable people actually sit is the difference between a slipped launch and a live hall. That is the specific ground Rectify covers across the [German market](/areas/germany).
+
+The same engineers are hired from a shared Northern European pool. Sweden and Finland show the shortage biting where power is cheapest, which changes how a German search has to be run. That hiring picture is set out in [data centre recruitment for these builds](/insights/data-centre-recruitment-germany).
