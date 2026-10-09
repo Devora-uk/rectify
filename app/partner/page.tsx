@@ -152,8 +152,8 @@ export default function PartnerPage() {
             '@type': 'Organization',
             name: 'Rectify International',
             url: baseUrl,
-            email: 'isaac.salakov@rectifyinternational.com',
-            telephone: '+17865791193',
+            email: 'isaac.vassell@rectifyinternational.com',
+            telephone: '+447399836007',
           },
         }}
       />
