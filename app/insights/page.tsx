@@ -52,10 +52,12 @@ export default function InsightsPage() {
                   alt={featured.heroImage.alt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 55vw"
-                  className="object-cover object-[center_28%]"
+                  className={featured.heroImage.src.startsWith('/insights/images/') ? 'object-contain bg-[#020d3b] p-6' : 'object-cover object-[center_28%]'}
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020d3b]/70 via-transparent to-transparent" />
+                {featured.heroImage.src.startsWith('/insights/images/') ? null : (
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#020d3b]/70 via-transparent to-transparent" />
+                )}
                 <p className="absolute bottom-6 left-6 max-w-sm text-[10px] font-bold uppercase tracking-[.18em] text-[#42e5dd]">
                   {featured.category}
                 </p>

@@ -96,8 +96,29 @@ function MarkdownChunk({ content }: { content: string }) {
             {children}
           </h3>
         ),
-        p: ({ children }) => (
-          <p className="mt-6 break-words text-base leading-7 text-slate-600 first:mt-0 sm:text-[1.05rem] sm:leading-8">{children}</p>
+        p: ({ children }) => {
+          const nodes = Children.toArray(children);
+          if (nodes.length === 1 && isValidElement(nodes[0]) && nodes[0].type === 'figure') {
+            return nodes[0];
+          }
+          return (
+            <p className="mt-6 break-words text-base leading-7 text-slate-600 first:mt-0 sm:text-[1.05rem] sm:leading-8">{children}</p>
+          );
+        },
+        img: ({ src, alt, title }) => (
+          <figure className="my-10">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={src}
+              alt={alt || ''}
+              title={title}
+              width={1600}
+              height={900}
+              loading="lazy"
+              className="w-full rounded-[1.25rem] border border-[#dbe8f8]"
+            />
+            {title ? <figcaption className="mt-3 text-sm leading-6 text-slate-500">{title}</figcaption> : null}
+          </figure>
         ),
         a: ({ href, children }) => <InsightLink href={href}>{children}</InsightLink>,
         ul: ({ children }) => <ul className="mt-6 list-disc space-y-2 pl-6 text-[1.05rem] leading-8 text-slate-600">{children}</ul>,

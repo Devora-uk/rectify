@@ -74,6 +74,7 @@ export default function InsightArticlePage({ params }: Props) {
   const fullTitle = article.titleHighlight
     ? `${article.title.replace(/\s+$/, '')} ${article.titleHighlight}`
     : article.title;
+  const chartHero = article.heroImage.src.startsWith('/insights/images/');
 
   return (
     <main className="bg-white text-[#03104b]">
@@ -128,10 +129,12 @@ export default function InsightArticlePage({ params }: Props) {
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 1500px"
-                className="object-cover object-[center_25%]"
+                className={chartHero ? 'object-contain bg-[#020d3b] p-4 sm:p-8' : 'object-cover object-[center_25%]'}
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#020d3b]/88 via-[#020d3b]/45 to-transparent" />
-              {article.heroQuote ? (
+              {chartHero ? null : (
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#020d3b]/88 via-[#020d3b]/45 to-transparent" />
+              )}
+              {article.heroQuote && !chartHero ? (
                 <div className="absolute inset-0 flex items-end p-8 sm:p-12">
                   <p className="max-w-xl break-words text-xl font-semibold leading-snug tracking-[-.02em] text-white sm:text-2xl sm:leading-tight sm:tracking-[-.03em] lg:text-3xl">
                     {article.heroQuote}

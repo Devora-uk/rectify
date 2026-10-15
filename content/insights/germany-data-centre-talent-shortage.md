@@ -119,7 +119,7 @@ The biggest single obstacle to hiring is a lack of qualified young professionals
 >
 > Source: [German Datacenter Association, 2024](https://www.germandatacenters.com/fileadmin/images/DCIRD-24/Data-Center-Impact-Report-Deutschland-2024_EN.pdf)
 
-There is a large pool going almost untouched, too. Only about 5% of technical data centre staff in Germany are women, roughly 1,300 people, and just 10% across all roles. As a fairness point, that is an old conversation. As a recruitment problem, it is a talent reserve the sector has barely started to work. You cannot hire your way out of a shortage the schools and apprenticeships are not filling. Not this decade. In the meantime, the experienced engineers who already exist get fought over, hard.
+There is a large pool going almost untouched, too. Only about 5% of technical data centre staff in Germany are women, roughly 1,300 people, and just 10% across all roles. As a fairness point, that is an old conversation. As a recruitment problem, it is a talent reserve the sector has barely started to work, which we have set out in full in [women in German data centre engineering](/insights/women-german-data-centre-engineering). You cannot hire your way out of a shortage the schools and apprenticeships are not filling. Not this decade. In the meantime, the experienced engineers who already exist get fought over, hard.
 
 ## What is the shortage doing to pay and retention?
 
