@@ -1,16 +1,20 @@
-import Script from 'next/script';
-
 interface StructuredDataProps {
-  data: object;
+  data: object | object[];
 }
 
 export default function StructuredData({ data }: StructuredDataProps) {
+  const blocks = Array.isArray(data) ? data : [data];
+
   return (
-    <Script
-      id="structured-data"
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
+    <>
+      {blocks.map((block, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }}
+        />
+      ))}
+    </>
   );
 }
 

@@ -44,3 +44,14 @@ export function getPublishedInsight(slug: string) {
 export function insightPath(slug: string) {
   return `/insights/${slug}`;
 }
+
+export function insightDisplayTitle(article: InsightArticle) {
+  const combined = article.titleHighlight
+    ? `${article.title.replace(/\s+$/, '')} ${article.titleHighlight}`
+    : article.title;
+  return combined.replace(/\s+/g, ' ').trim();
+}
+
+export function insightShareTitle(article: InsightArticle) {
+  return insightDisplayTitle(article).replace(/\.+$/, '');
+}

@@ -6,8 +6,8 @@ import { ArrowRight, ArrowUpRight, ChevronRight } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import StructuredData from '@/components/StructuredData';
-import { InsightBody, InsightSources, insightCitationUrls, insightHeadings } from '@/components/insights/InsightMarkdown';
-import { getPublishedInsight, getPublishedInsights, insightPath } from '@/lib/insights';
+import { InsightBody, InsightSources, insightHeadings } from '@/components/insights/InsightMarkdown';
+import { getPublishedInsight, getPublishedInsights, insightPath, insightShareTitle } from '@/lib/insights';
 
 type Props = { params: { slug: string } };
 
@@ -23,13 +23,14 @@ export function generateMetadata({ params }: Props): Metadata {
 
   const url = `${baseUrl}${insightPath(article.slug)}`;
   const title = article.seoTitle || article.title;
+  const shareTitle = insightShareTitle(article);
   return {
     title,
     description: article.description,
     keywords: article.keywords,
     authors: [{ name: article.author.name }],
     openGraph: {
-      title: article.title,
+      title: shareTitle,
       description: article.description,
       url,
       type: 'article',
@@ -46,7 +47,7 @@ export function generateMetadata({ params }: Props): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: shareTitle,
       description: article.description,
       images: [`${baseUrl}${article.heroImage.src}`],
     },
@@ -70,14 +71,55 @@ export default function InsightArticlePage({ params }: Props) {
 
   const url = `${baseUrl}${insightPath(article.slug)}`;
   const headings = insightHeadings(article.body);
-  const citations = insightCitationUrls(article);
-  const fullTitle = article.titleHighlight
-    ? `${article.title.replace(/\s+$/, '')} ${article.titleHighlight}`
-    : article.title;
+  const shareTitle = insightShareTitle(article);
   const chartHero = article.heroImage.src.startsWith('/insights/images/');
+  const isPress = /press release/i.test(article.category);
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'Rectify International',
+      url: baseUrl,
+      description: 'Specialist recruitment firm placing MEP, building-services engineering and data centre talent, focused on Germany and the United States.',
+      areaServed: ['DE', 'US'],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': isPress ? 'NewsArticle' : 'Article',
+      headline: shareTitle,
+      description: article.description,
+      author: {
+        '@type': 'Person',
+        name: article.author.name,
+        jobTitle: article.author.role,
+        worksFor: { '@type': 'Organization', name: 'Rectify International' },
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Rectify International',
+        url: baseUrl,
+      },
+      datePublished: article.publishedAt,
+      dateModified: article.updatedAt,
+      mainEntityOfPage: url,
+      image: `${baseUrl}${article.heroImage.src}`,
+    },
+    ...(article.faqs.length
+      ? [{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: article.faqs.map((faq) => ({
+            '@type': 'Question',
+            name: faq.question,
+            acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+          })),
+        }]
+      : []),
+  ];
 
   return (
     <main className="bg-white text-[#03104b]">
+      <StructuredData data={jsonLd} />
       <Navigation activePage="insights" />
 
       <article>
@@ -146,12 +188,12 @@ export default function InsightArticlePage({ params }: Props) {
         </div>
 
         {article.capacity.length ? (
-          <section className="border-b border-[#dbe8f8] py-16 lg:py-20" aria-labelledby="capacity-heading">
+          <section className="border-b border-[#dbe8f8] py-16 lg:py-20" aria-labelledby="headline-figures">
             <div className="section-shell">
               <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
                 <div>
                   <p className="eyebrow">Figures in view</p>
-                <h2 id="capacity-heading" className="mt-4 scroll-mt-28 break-words text-2xl font-semibold tracking-[-.03em] sm:text-3xl sm:tracking-[-.035em] lg:text-4xl lg:tracking-[-.04em]">
+                <h2 id="headline-figures" className="mt-4 scroll-mt-28 break-words text-2xl font-semibold tracking-[-.03em] sm:text-3xl sm:tracking-[-.035em] lg:text-4xl lg:tracking-[-.04em]">
                     The numbers behind this briefing
                   </h2>
                 </div>
@@ -198,7 +240,7 @@ export default function InsightArticlePage({ params }: Props) {
                 <p className="text-[10px] font-bold uppercase tracking-[.2em] text-[#0b4ee8]">In this briefing</p>
                 <nav aria-label="Article sections" className="mt-5 space-y-3 text-sm font-semibold text-slate-600">
                   {article.capacity.length ? (
-                    <a className="block hover:text-[#0b4ee8]" href="#capacity-heading">Headline figures</a>
+                    <a className="block hover:text-[#0b4ee8]" href="#headline-figures">Headline figures</a>
                   ) : null}
                   {headings.map((heading) => (
                     <a key={heading.id} className="block hover:text-[#0b4ee8]" href={`#${heading.id}`}>
@@ -253,16 +295,10 @@ export default function InsightArticlePage({ params }: Props) {
               </div>
               <div className="divide-y divide-[#c9daee] border-y border-[#c9daee]">
                 {article.faqs.map((faq) => (
-                  <details key={faq.question} className="group py-6">
-                    <summary className="cursor-pointer list-none text-lg font-semibold tracking-[-.02em] marker:content-none [&::-webkit-details-marker]:hidden">
-                      <span className="flex items-start justify-between gap-4 sm:gap-6">
-                        <span className="min-w-0 break-words">{faq.question}</span>
-                        <span className="mt-1 font-mono text-xs text-[#0b4ee8] group-open:hidden">+</span>
-                        <span className="mt-1 hidden font-mono text-xs text-[#0b4ee8] group-open:inline">–</span>
-                      </span>
-                    </summary>
+                  <div key={faq.question} className="py-6">
+                    <h3 className="text-lg font-semibold tracking-[-.02em]">{faq.question}</h3>
                     <p className="mt-4 max-w-2xl leading-7 text-slate-600">{faq.answer}</p>
-                  </details>
+                  </div>
                 ))}
               </div>
             </div>
@@ -278,58 +314,6 @@ export default function InsightArticlePage({ params }: Props) {
       </article>
 
       <Footer />
-      <StructuredData
-        data={{
-          '@context': 'https://schema.org',
-          '@graph': [
-            {
-              '@type': 'BreadcrumbList',
-              itemListElement: [
-                { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
-                { '@type': 'ListItem', position: 2, name: 'Insights', item: `${baseUrl}/insights` },
-                { '@type': 'ListItem', position: 3, name: fullTitle, item: url },
-              ],
-            },
-            {
-              '@type': 'BlogPosting',
-              headline: fullTitle,
-              description: article.description,
-              image: `${baseUrl}${article.heroImage.src}`,
-              datePublished: article.publishedAt,
-              dateModified: article.updatedAt,
-              author: {
-                '@type': 'Person',
-                name: article.author.name,
-                jobTitle: article.author.role,
-                worksFor: { '@type': 'Organization', name: 'Rectify International' },
-              },
-              publisher: {
-                '@type': 'Organization',
-                name: 'Rectify International',
-                url: baseUrl,
-                logo: { '@type': 'ImageObject', url: `${baseUrl}/rectify-logo.png` },
-              },
-              mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-              inLanguage: 'en-GB',
-              articleSection: article.category,
-              keywords: article.keywords.join(', '),
-              ...(citations.length
-                ? { citation: citations.map((citationUrl) => ({ '@type': 'CreativeWork', url: citationUrl })) }
-                : {}),
-            },
-            ...(article.faqs.length
-              ? [{
-                  '@type': 'FAQPage',
-                  mainEntity: article.faqs.map((faq) => ({
-                    '@type': 'Question',
-                    name: faq.question,
-                    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
-                  })),
-                }]
-              : []),
-          ],
-        }}
-      />
     </main>
   );
 }
