@@ -46,6 +46,11 @@ const nextConfig = {
         destination: '/areas/united-states',
         permanent: true,
       },
+      {
+        source: '/insights/non-importable-hire-german-data-centre-build',
+        destination: '/insights/non-importable-hire-german-data-centre',
+        permanent: true,
+      },
     ];
   },
 };

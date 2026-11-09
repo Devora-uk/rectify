@@ -1,5 +1,5 @@
 ---
-slug: non-importable-hire-german-data-centre-build
+slug: non-importable-hire-german-data-centre
 status: published
 category: German Market Intelligence · Cross-Border Hiring
 breadcrumb: US capital, German delivery
@@ -17,7 +17,7 @@ keywords:
   - commissioning engineers Frankfurt
   - cross-border data centre hiring
 publishedAt: 2026-10-29
-updatedAt: 2026-10-29
+updatedAt: 2026-11-09
 readingMinutes: 6
 author:
   name: Isaac Vassell
