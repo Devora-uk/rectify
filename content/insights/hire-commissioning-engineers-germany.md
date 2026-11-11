@@ -16,7 +16,7 @@ keywords:
   - MEP recruitment Germany
   - stalled data centre hiring Germany
 publishedAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-11-09
 readingMinutes: 7
 author:
   name: Isaac Vassell
@@ -33,12 +33,12 @@ capacity:
   - label: Electrical Construction Manager, same city
     value: €65,000
     note: A different market from the SAP
-  - label: Average time to fill an energy-sector vacancy in Europe
-    value: 195 days
-    note: Best candidates leave in under 14
+  - label: Average time to close a vacancy in Germany, 2025
+    value: 167 days
+    note: "242 days in the skilled trades. Source: Bundesagentur für Arbeit."
 faqs:
   - question: How long does it take to fill a mission-critical role in Germany?
-    answer: The average time to fill an energy-sector vacancy in Europe runs around 195 days. The best candidates come off the market in under 14. That gap is the whole problem. A search built around job adverts loses the people worth having long before it reaches them.
+    answer: In 2025, the average vacancy reported to Germany’s Federal Employment Agency took 167 days to close, and 242 days in the skilled trades, which include the electricians and heating engineers these sites depend on. An advert-led search sits inside that wait. The engineers who can commission a data centre are usually busy on someone else’s build and rarely see the advert at all.
   - question: Is the salary band really why a search fails?
     answer: Often, yes. A band set below the German market, or benchmarked against the wrong role, produces a shortlist of people you don't want and silence from the people you do. Knowing the real band for the exact role and city fixes more stalled searches than any other single change.
   - question: What makes a brief wrong when the job title is right?
@@ -111,3 +111,5 @@ That's the whole reason we make prospective clients answer these before a call. 
 ## About the author
 
 Isaac is a mission-critical recruitment specialist focused on data centre and MEP hiring across Germany. He personally places senior electrical and mechanical talent into German data centre builds, from Senior Authorised Persons to construction and commissioning leads.
+
+Source: [Statistik der Bundesagentur für Arbeit, Arbeitsmarkt kompakt: Arbeits- und Ausbildungsmarkt im Handwerk, August 2026.](https://statistik.arbeitsagentur.de/DE/Statischer-Content/Statistiken/Themen-im-Fokus/Berufe/Generische-Publikationen/AM-kompakt-Arbeits-und-Ausbildungsmarkt-im-Handwerk.pdf)
